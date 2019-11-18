@@ -1,3 +1,7 @@
-public class AStar
+public class AStar extends Search
 {
+    public Node search()
+    {
+        return null;
+    }
 }
