@@ -1,4 +1,6 @@
-public class DFS extends Search
+package Search;
+
+public class AStar extends Search
 {
     public Node search()
     {

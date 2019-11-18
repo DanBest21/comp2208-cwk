@@ -1,4 +1,6 @@
-public class AStar extends Search
+package Search;
+
+public class IDS extends Search
 {
     public Node search()
     {

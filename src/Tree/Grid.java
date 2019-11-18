@@ -1,3 +1,5 @@
+package Tree;
+
 public class Grid
 {
     private final int size;

@@ -1,3 +1,7 @@
+package Search;
+
+import Tree.*;
+
 public abstract class Search
 {
     private static final int N = 4;
@@ -31,3 +35,5 @@ public abstract class Search
 
     public abstract Node search();
 }
+
+

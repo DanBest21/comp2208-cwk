@@ -1,9 +1,12 @@
+package Search;
+
 import java.util.LinkedList;
 import java.util.Queue;
+import Tree.Node;
 
 public class BFS extends Search
 {
-    private Queue<Node> queue = new LinkedList<>();
+    private Queue<Node> fringe = new LinkedList<>();
 
     public BFS()
     {
@@ -14,18 +17,18 @@ public class BFS extends Search
     {
         Node node = new Node(startState, null);
 
-        queue.add(node);
+        fringe.add(node);
 
-        while (!queue.isEmpty())
+        while (!fringe.isEmpty())
         {
-            node = queue.remove();
+            node = fringe.remove();
 
             if (node.getValue().equals(solutionState))
                 return node;
 
             expandNodes(node);
 
-            queue.addAll(node.getChildren());
+            fringe.addAll(node.getChildren());
         }
 
         return null;

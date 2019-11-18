@@ -1,3 +1,7 @@
+import Search.BFS;
+import Tree.Direction;
+import Tree.Node;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,50 +45,50 @@ public class Main
         }
     }
 
-    /** public void sampleSolution(Grid grid)
+    /** public void sampleSolution(Tree.Grid grid)
     {
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.UP);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.RIGHT);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.DOWN);
-        grid.moveAgent(Direction.LEFT);
-        grid.moveAgent(Direction.LEFT);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.UP);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.RIGHT);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.DOWN);
+        grid.moveAgent(Tree.Direction.LEFT);
+        grid.moveAgent(Tree.Direction.LEFT);
     } **/
 }
