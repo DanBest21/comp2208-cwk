@@ -6,7 +6,7 @@ import Tree.Node;
 
 public class BFS extends Search
 {
-    private Queue<Node> fringe = new LinkedList<>();
+    private final Queue<Node> fringe = new LinkedList<>();
 
     public BFS()
     {
@@ -15,18 +15,19 @@ public class BFS extends Search
 
     public Node search()
     {
-        Node node = new Node(startState, null);
+        Node node = new Node(startState, null, nodesVisited);
 
         fringe.add(node);
 
         while (!fringe.isEmpty())
         {
             node = fringe.remove();
+            nodesVisited++;
 
             if (node.getValue().equals(solutionState))
                 return node;
 
-            expandNodes(node);
+            expandNodes(node, nodesVisited);
 
             fringe.addAll(node.getChildren());
         }

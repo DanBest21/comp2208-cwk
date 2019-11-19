@@ -8,6 +8,7 @@ public abstract class Search
 
     protected final Grid startState = new Grid(N);
     protected final Grid solutionState = new Grid(N);
+    protected int nodesVisited = 1;
 
     protected Search()
     {
@@ -15,7 +16,7 @@ public abstract class Search
         solutionState.generateSolutionGrid();
     }
 
-    protected void expandNodes(Node node)
+    protected void expandNodes(Node node, int nodeNumber)
     {
         Grid currentGrid = node.getValue();
 
@@ -27,7 +28,7 @@ public abstract class Search
 
             if (!newGrid.equals(currentGrid))
             {
-                Node newNode = new Node(newGrid, node);
+                Node newNode = new Node(newGrid, node, nodeNumber);
                 node.addChild(newNode);
             }
         }
