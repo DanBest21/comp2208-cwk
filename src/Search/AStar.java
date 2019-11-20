@@ -9,6 +9,7 @@ public class AStar extends Search
 {
     private final Queue<Node> fringe = new PriorityQueue<>();
 
+    // TODO: Figure out why this isn't finding the optimal solution - the issue will be with the heuristic.
     public Node search()
     {
         Node node = new Node(startState, null, nodesVisited);
