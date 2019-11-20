@@ -8,7 +8,7 @@ public class Node implements Comparable<Node>
         private final Grid value;
         private final Node parent;
         private final List<Node> children;
-        private final int nodeNumber;
+        private int nodeNumber;
         private int heuristic;
 
         public Node(Grid value, Node parent, int nodeNumber)
@@ -37,6 +37,11 @@ public class Node implements Comparable<Node>
         public int getNodeNumber()
         {
             return nodeNumber;
+        }
+
+        public void setNodeNumber(int nodeNumber)
+        {
+            this.nodeNumber = nodeNumber;
         }
 
         public int getDepth()

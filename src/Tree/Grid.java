@@ -46,7 +46,7 @@ public class Grid
         for (int i = 0; i < blockNumber; i++)
         {
             grid[size - 1][i] = block;
-            blockPositions.put(block, (size - 1) + (size * i));
+            blockPositions.put(block, i + (size * (size - 1)));
             block++;
         }
 
@@ -64,7 +64,7 @@ public class Grid
         for (int i = blockNumber; i > 0; i--)
         {
             grid[i][1] = block;
-            blockPositions.put(block, i + size);
+            blockPositions.put(block, 1 + (size * i));
             block--;
         }
     }
@@ -101,7 +101,7 @@ public class Grid
         return printString;
     }
 
-    private void setBlockPosition(int x, int y, char block)
+    private void setBlockPosition(char block, int x, int y)
     {
         if (blockPositions.containsKey(block))
             blockPositions.put(block, x + (size * y));
@@ -149,6 +149,7 @@ public class Grid
                 {
                     grid[y][x] = grid[y][x - 1];
                     grid[y][x - 1] = A;
+                    setBlockPosition(grid[y][x], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x - 1, y);
                     lastDirection = Direction.LEFT;
                 }
@@ -158,6 +159,7 @@ public class Grid
                 {
                     grid[y][x] = grid[y][x + 1];
                     grid[y][x + 1] = A;
+                    setBlockPosition(grid[y][x], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x + 1, y);
                     lastDirection = Direction.RIGHT;
                 }
@@ -167,6 +169,7 @@ public class Grid
                 {
                     grid[y][x] = grid[y - 1][x];
                     grid[y - 1][x] = A;
+                    setBlockPosition(grid[y][x], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x, y - 1);
                     lastDirection = Direction.UP;
                 }
@@ -176,40 +179,11 @@ public class Grid
                 {
                     grid[y][x] = grid[y + 1][x];
                     grid[y + 1][x] = A;
+                    setBlockPosition(grid[y][x], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x, y + 1);
                     lastDirection = Direction.DOWN;
                 }
                 break;
-        }
-
-        updateBlockPosition(grid[y][x], direction);
-    }
-
-    private void updateBlockPosition(char block, Direction direction)
-    {
-        if (blockPositions.containsKey(block))
-        {
-            int x = getXCoord(blockPositions.get(block));
-            int y = getYCoord(blockPositions.get(block));
-
-            switch (direction)
-            {
-                case LEFT:
-                    setBlockPosition(x - 1, y, block);
-                    break;
-
-                case RIGHT:
-                    setBlockPosition(x + 1, y, block);
-                    break;
-
-                case UP:
-                    setBlockPosition(x, y - 1, block);
-                    break;
-
-                case DOWN:
-                    setBlockPosition(x, y + 1, block);
-                    break;
-            }
         }
     }
 

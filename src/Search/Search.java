@@ -9,17 +9,17 @@ public abstract class Search
 {
     private static final int N = 4;
 
-    protected final Grid startState = new Grid(N);
-    protected final Grid solutionState = new Grid(N);
-    protected int nodesVisited = 1;
+    final Grid startState = new Grid(N);
+    final Grid solutionState = new Grid(N);
+    int nodesVisited = 1;
 
-    protected Search()
+    Search()
     {
         startState.generateStartingGrid();
         solutionState.generateSolutionGrid();
     }
 
-    protected void expandNodes(Node node, int nodeNumber)
+    void expandNodes(Node node, int nodeNumber)
     {
         Grid currentGrid = node.getValue();
 
