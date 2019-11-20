@@ -3,12 +3,13 @@ package Tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Node
+public class Node implements Comparable<Node>
 {
         private final Grid value;
         private final Node parent;
         private final List<Node> children;
         private final int nodeNumber;
+        private int heuristic;
 
         public Node(Grid value, Node parent, int nodeNumber)
         {
@@ -52,8 +53,23 @@ public class Node
             return depth;
         }
 
+        public void setHeuristic(int heuristic)
+        {
+            this.heuristic = heuristic;
+        }
+
+        public int getHeuristic()
+        {
+            return heuristic;
+        }
+
         public void addChild(Node child)
         {
             this.children.add(child);
+        }
+
+        public int compareTo(Node node)
+        {
+            return Integer.compare(this.getHeuristic(), node.getHeuristic());
         }
 }

@@ -2,6 +2,9 @@ package Search;
 
 import Tree.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class Search
 {
     private static final int N = 4;
@@ -22,7 +25,17 @@ public abstract class Search
 
         for (Direction dir : Direction.values())
         {
-            Grid newGrid = new Grid(currentGrid.getGrid(), currentGrid.getAgentPosition());
+            Map<Character, Integer> blockPositions = new HashMap<>();
+
+            for (Map.Entry entry : currentGrid.getBlockPositions().entrySet())
+            {
+                char block = (char)entry.getKey();
+                int position = (int)entry.getValue();
+
+                blockPositions.put(block, position);
+            }
+
+            Grid newGrid = new Grid(currentGrid.getGrid(), currentGrid.getAgentPosition(), blockPositions);
 
             newGrid.moveAgent(dir);
 

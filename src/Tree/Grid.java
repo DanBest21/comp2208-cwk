@@ -1,13 +1,18 @@
 package Tree;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Grid
 {
     private final int size;
     private final char[][] grid;
     private int agentPosition;
     private Direction lastDirection = null;
+    private Map<Character, Integer> blockPositions = new HashMap<>();
 
     private static final char A = '¬';
+    private static final char E = 'W';
 
     public Grid(int size)
     {
@@ -18,16 +23,17 @@ public class Grid
         {
             for (int j = 0; j < size; j++)
             {
-                grid[i][j] = 'W';
+                grid[i][j] = E;
             }
         }
     }
 
-    public Grid(char[][] grid, int agentPosition)
+    public Grid(char[][] grid, int agentPosition, Map<Character, Integer> blockPositions)
     {
         this.size = grid.length;
         this.grid = grid;
         this.agentPosition = agentPosition;
+        this.blockPositions = blockPositions;
     }
 
     public void generateStartingGrid()
@@ -35,9 +41,12 @@ public class Grid
         int blockNumber = size - 1;
         char block = 'a';
 
+        blockPositions.clear();
+
         for (int i = 0; i < blockNumber; i++)
         {
             grid[size - 1][i] = block;
+            blockPositions.put(block, (size - 1) + (size * i));
             block++;
         }
 
@@ -50,9 +59,12 @@ public class Grid
         int blockNumber = size - 1;
         char block = (char) ('a' + blockNumber - 1);
 
+        blockPositions.clear();
+
         for (int i = blockNumber; i > 0; i--)
         {
             grid[i][1] = block;
+            blockPositions.put(block, i + size);
             block--;
         }
     }
@@ -89,27 +101,46 @@ public class Grid
         return printString;
     }
 
+    private void setBlockPosition(int x, int y, char block)
+    {
+        if (blockPositions.containsKey(block))
+            blockPositions.put(block, x + (size * y));
+    }
+
     private void setAgentPosition(int x, int y)
     {
         agentPosition = x + (size * y);
     }
 
-    private int getAgentXCoord()
+    private int getXCoord(int position)
     {
-        return agentPosition % size;
+        return position % size;
     }
 
-    private int getAgentYCoord()
+    private int getYCoord(int position)
     {
-        return agentPosition / size;
+        return position / size;
     }
 
     public int getAgentPosition() { return agentPosition; }
 
-    public char[][] moveAgent(Direction direction)
+    private int getBlockPosition(char block)
     {
-        int x = getAgentXCoord();
-        int y = getAgentYCoord();
+        if (blockPositions.containsKey(block))
+            return blockPositions.get(block);
+
+        return -1;
+    }
+
+    public Map<Character, Integer> getBlockPositions()
+    {
+        return blockPositions;
+    }
+
+    public void moveAgent(Direction direction)
+    {
+        int x = getXCoord(agentPosition);
+        int y = getYCoord(agentPosition);
 
         switch (direction)
         {
@@ -151,7 +182,35 @@ public class Grid
                 break;
         }
 
-        return grid;
+        updateBlockPosition(grid[y][x], direction);
+    }
+
+    private void updateBlockPosition(char block, Direction direction)
+    {
+        if (blockPositions.containsKey(block))
+        {
+            int x = getXCoord(blockPositions.get(block));
+            int y = getYCoord(blockPositions.get(block));
+
+            switch (direction)
+            {
+                case LEFT:
+                    setBlockPosition(x - 1, y, block);
+                    break;
+
+                case RIGHT:
+                    setBlockPosition(x + 1, y, block);
+                    break;
+
+                case UP:
+                    setBlockPosition(x, y - 1, block);
+                    break;
+
+                case DOWN:
+                    setBlockPosition(x, y + 1, block);
+                    break;
+            }
+        }
     }
 
     public Direction getLastDirection()
@@ -175,5 +234,25 @@ public class Grid
         }
 
         return true;
+    }
+
+    public int calculateManhattanDistance(Grid solution)
+    {
+        int distance = 0;
+
+        for (Map.Entry entry : blockPositions.entrySet())
+        {
+            int gridPosition = (int)entry.getValue();
+            int solutionPosition = solution.getBlockPosition((char)entry.getKey());
+
+            int gridX = getXCoord(gridPosition);
+            int gridY = getYCoord(gridPosition);
+            int solutionX = getXCoord(solutionPosition);
+            int solutionY = getYCoord(solutionPosition);
+
+            distance = distance + Math.abs(gridX - solutionX) + Math.abs(gridY - solutionY);
+        }
+
+        return distance;
     }
 }
