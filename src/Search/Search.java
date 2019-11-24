@@ -15,8 +15,12 @@ public abstract class Search
 
     Search()
     {
-        startState.generateStartingGrid();
         solutionState.generateSolutionGrid();
+    }
+
+    public void setStartingGrid(int depth)
+    {
+        startState.generateStartingGrid(depth);
     }
 
     void expandNodes(Node node, int nodeNumber)

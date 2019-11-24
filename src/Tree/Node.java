@@ -49,7 +49,7 @@ public class Node implements Comparable<Node>
             int depth = 0;
             Node node = this;
 
-            while (node != null)
+            while (node.parent != null)
             {
                 depth++;
                 node = node.parent;

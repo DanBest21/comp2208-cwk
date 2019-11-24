@@ -45,13 +45,144 @@ public class Grid
 
         for (int i = 0; i < blockNumber; i++)
         {
-            grid[size - 1][i] = block;
-            blockPositions.put(block, i + (size * (size - 1)));
+            setBlockPosition(block, i, size - 1);
             block++;
         }
 
-        grid[size - 1][blockNumber] = A;
         setAgentPosition(size - 1, size - 1);
+    }
+
+    // IMPORTANT: This function only works if the size of the grid is 4x4, i.e. size = 4.
+    public void generateStartingGrid(int depth)
+    {
+        blockPositions.clear();
+
+        switch (depth)
+        {
+            case 0:
+                setBlockPosition('a', 1, 1);
+                setBlockPosition('b', 1, 2);
+                setBlockPosition('c', 1, 3);
+                setAgentPosition(2, 1);
+                break;
+            case 1:
+                setBlockPosition('a', 1, 1);
+                setBlockPosition('b', 0, 2);
+                setBlockPosition('c', 1, 3);
+                setAgentPosition(1, 2);
+                break;
+            case 2:
+                setBlockPosition('a', 0, 1);
+                setBlockPosition('b', 1, 1);
+                setBlockPosition('c', 1, 3);
+                setAgentPosition(1, 2);
+                break;
+            case 3:
+                setBlockPosition('a', 2, 1);
+                setBlockPosition('b', 1, 1);
+                setBlockPosition('c', 1, 2);
+                setAgentPosition(1, 3);
+                break;
+            case 4:
+                setBlockPosition('a', 2, 1);
+                setBlockPosition('b', 1, 1);
+                setBlockPosition('c', 1, 2);
+                setAgentPosition(2, 3);
+                break;
+            case 5:
+                setBlockPosition('a', 2, 1);
+                setBlockPosition('b', 1, 1);
+                setBlockPosition('c', 1, 2);
+                setAgentPosition(2, 2);
+                break;
+            case 6:
+                setBlockPosition('a', 2, 1);
+                setBlockPosition('b', 1, 1);
+                setBlockPosition('c', 1, 2);
+                setAgentPosition(0, 1);
+                break;
+            case 7:
+                setBlockPosition('a', 2, 1);
+                setBlockPosition('b', 1, 1);
+                setBlockPosition('c', 1, 2);
+                setAgentPosition(0, 0);
+                break;
+            case 8:
+                setBlockPosition('a', 2, 1);
+                setBlockPosition('b', 1, 1);
+                setBlockPosition('c', 1, 2);
+                setAgentPosition(1, 0);
+                break;
+            case 9:
+                setBlockPosition('a', 1, 3);
+                setBlockPosition('b', 1, 2);
+                setBlockPosition('c', 2, 3);
+                setAgentPosition(0, 3);
+                break;
+            case 10:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 2);
+                setBlockPosition('c', 2, 3);
+                setAgentPosition(1, 3);
+                break;
+            case 11:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 3);
+                setBlockPosition('c', 2, 3);
+                setAgentPosition(1, 2);
+                break;
+            case 12:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 3);
+                setBlockPosition('c', 2, 3);
+                setAgentPosition(0, 2);
+                break;
+            case 13:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 3);
+                setBlockPosition('c', 2, 3);
+                setAgentPosition(0, 1);
+                break;
+            case 14:
+                generateStartingGrid();
+                break;
+            case 15:
+                setBlockPosition('a', 2, 1);
+                setBlockPosition('b', 1, 1);
+                setBlockPosition('c', 0, 1);
+                setAgentPosition(0, 0);
+                break;
+            case 16:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 3);
+                setBlockPosition('c', 3, 3);
+                setAgentPosition(2, 2);
+                break;
+            case 17:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 3);
+                setBlockPosition('c', 3, 3);
+                setAgentPosition(2, 1);
+                break;
+            case 18:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 3);
+                setBlockPosition('c', 3, 3);
+                setAgentPosition(2, 0);
+                break;
+            case 19:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 3);
+                setBlockPosition('c', 3, 3);
+                setAgentPosition(0, 0);
+                break;
+            case 20:
+                setBlockPosition('a', 0, 3);
+                setBlockPosition('b', 1, 3);
+                setBlockPosition('c', 3, 2);
+                setAgentPosition(0, 0);
+                break;
+        }
     }
 
     public void generateSolutionGrid()
@@ -63,8 +194,7 @@ public class Grid
 
         for (int i = blockNumber; i > 0; i--)
         {
-            grid[i][1] = block;
-            blockPositions.put(block, 1 + (size * i));
+            setBlockPosition(block, 1, i);
             block--;
         }
     }
@@ -81,7 +211,8 @@ public class Grid
         return newGrid;
     }
 
-    public String printGrid()
+    @Override
+    public String toString()
     {
         String printString = "";
 
@@ -103,12 +234,17 @@ public class Grid
 
     private void setBlockPosition(char block, int x, int y)
     {
-        if (blockPositions.containsKey(block))
+        grid[y][x] = block;
+
+        if (block != E && block != A)
+        {
             blockPositions.put(block, x + (size * y));
+        }
     }
 
     private void setAgentPosition(int x, int y)
     {
+        grid[y][x] = A;
         agentPosition = x + (size * y);
     }
 
@@ -147,9 +283,7 @@ public class Grid
             case LEFT:
                 if (x != 0)
                 {
-                    grid[y][x] = grid[y][x - 1];
-                    grid[y][x - 1] = A;
-                    setBlockPosition(grid[y][x], getXCoord(agentPosition), getYCoord(agentPosition));
+                    setBlockPosition(grid[y][x - 1], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x - 1, y);
                     lastDirection = Direction.LEFT;
                 }
@@ -157,9 +291,7 @@ public class Grid
             case RIGHT:
                 if (x != size - 1)
                 {
-                    grid[y][x] = grid[y][x + 1];
-                    grid[y][x + 1] = A;
-                    setBlockPosition(grid[y][x], getXCoord(agentPosition), getYCoord(agentPosition));
+                    setBlockPosition(grid[y][x + 1], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x + 1, y);
                     lastDirection = Direction.RIGHT;
                 }
@@ -167,9 +299,7 @@ public class Grid
             case UP:
                 if (y != 0)
                 {
-                    grid[y][x] = grid[y - 1][x];
-                    grid[y - 1][x] = A;
-                    setBlockPosition(grid[y][x], getXCoord(agentPosition), getYCoord(agentPosition));
+                    setBlockPosition(grid[y - 1][x], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x, y - 1);
                     lastDirection = Direction.UP;
                 }
@@ -177,9 +307,7 @@ public class Grid
             case DOWN:
                 if (y != size - 1)
                 {
-                    grid[y][x] = grid[y + 1][x];
-                    grid[y + 1][x] = A;
-                    setBlockPosition(grid[y][x], getXCoord(agentPosition), getYCoord(agentPosition));
+                    setBlockPosition(grid[y + 1][x], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x, y + 1);
                     lastDirection = Direction.DOWN;
                 }
