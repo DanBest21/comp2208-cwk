@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{parskip}
+\usepackage[a4paper, total={6in, 8in}]{geometry}
+
+\title{COMP2208 - Search Methods Coursework}
+\author{Daniel Best (Student ID: 29777127)}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\lfoot{Daniel Best}
+\cfoot{\thepage}
+\rfoot{COMP2208 Coursework}
+
+\begin{document}
+	\maketitle
+	
+	\newpage
+	
+	\section{Approach}
+	My approach to this assignment was to first create support classes that would handle any details that didn't directly relate to the search algorithm itself. These are as follows:
+	
+	\subsection{Node}
+	This class defines both a singular node in the tree structure, as well as the entire tree structure itself by means of its \textbf{parent} and \textbf{children} variables. It contains a single \textbf{Grid} object, the \textbf{value} variable. It also implements the Comparable interface, where it compares an optional \textbf{estimatedCost} variable - a feature that was specifically added for the A* Search algorithm.
+
+	\subsection{Grid}
+	A class that handles the state by means of manipulating a \textbf{char[][]} multidimensional array. This class stores the actual state of the problem, storing the location of the \textbf{agent} and all of the non-white space blocks; it also allows for that state to be manipulated in a multitude of ways:
+	
+	\begin{itemize}
+		\item Generates the start and solution state.
+		\item Moves the agent in the grid, thereby changing the location of both the agent and the block it moves to.
+		\item Calculates the \textbf{Manhattan distance} between the Grid and another Grid object passed to it, which is used as the heuristic for A* Search.
+	\end{itemize}
+	
+	\subsection{Search}
+	An abstract class that defines a common start and solution state for each of the individual search methods, and provides a common \textbf{expandNode()} method, which generates the children of a given node.
+	
+	Using this \textbf{Search} class, I was able to easily implement a class for each of the four search algorithms:
+	
+	\subsection{Breadth First Search (BFS)}
+	Uses a \textbf{Queue} to store expanded nodes, meaning nodes are checked in the order they are expanded.
+	
+	\subsection{Depth First Search (DFS)}
+	Uses a \textbf{Stack} to store expanded nodes, meaning the last node to expanded is checked next.
+	
+	\subsection{Iterative Deepening Search (IDS)}
+	Uses \textbf{Depth Limited Search (DLS)}, a modified version of \textbf{DFS} that does not expand nodes at a given depth, which then iteratively increases this limit. 
+	
+	\subsection{A* Heuristic Search}
+	Makes use of an evaluation function to determine which node to pick next, which is the \textbf{depth} of the node plus the \textbf{Manhattan distance (heuristic)} to the solution.
+	
+	\section{Evidence of Search Methods}
+	\section{Scalability Study}
+	\section{Extras and Limitations}
+	\section{References}
+	\section{Code}
+\end{document}
