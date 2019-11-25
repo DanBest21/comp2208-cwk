@@ -76,30 +76,39 @@ public class Main
         System.out.println(strategyName + " - Optimal Solution Depth: " + input);
         System.out.println("*************************************************************************************");
 
-        System.out.println("\n" + strategy.getStartingGrid());
-
         // Perform the search.
         Node solution = strategy.search();
         int nodesGenerated = strategy.getNodesGenerated();
         int depth = solution.getDepth();
 
+        List<Grid> path = new ArrayList<>();
         List<Direction> directions = new ArrayList<>();
 
-        System.out.println(solution.getValue());
-
-        // Retrieve the steps taken by analysing each node and then moving up the tree.
+        // Retrieve the steps taken by analysing each node, storing the grid, and then moving up the tree.
         while (solution.getParent() != null)
         {
-            directions.add(solution.getValue().getLastDirection());
+            path.add(solution.getValue());
             solution = solution.getParent();
         }
 
-        // Reverse the directions since they will be in the opposite order (since we travelled up the tree).
-        Collections.reverse(directions);
+        // Reverse the path, since it will be in the opposite order because we're travelling up the tree.
+        Collections.reverse(path);
+
+        System.out.println("\nRoot:\n" + strategy.getStartingGrid());
+
+        int i = 1;
+
+        // Output each node grid state.
+        for (Grid grid : path)
+        {
+            System.out.println("Depth " + i + ":\n" + grid);
+            directions.add(grid.getLastDirection());
+            i++;
+        }
 
         System.out.print("Solution found after generating " + nodesGenerated + " nodes: ");
 
-        int i = 1;
+        i = 1;
 
         // Output the steps taken.
         for (Direction dir : directions)
