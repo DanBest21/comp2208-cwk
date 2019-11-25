@@ -3,20 +3,19 @@ package Tree;
 import java.util.ArrayList;
 import java.util.List;
 
+// Class that defines a Node, which is used to form a Tree structure by means of the parent and children variables.
 public class Node implements Comparable<Node>
 {
         private final Grid value;
         private final Node parent;
         private final List<Node> children;
-        private int nodeNumber;
-        private int heuristic;
+        private int estimatedCost;
 
-        public Node(Grid value, Node parent, int nodeNumber)
+        public Node(Grid value, Node parent)
         {
             this.value = value;
             this.parent = parent;
             this.children = new ArrayList<>();
-            this.nodeNumber = nodeNumber;
         }
 
         public Grid getValue()
@@ -34,16 +33,7 @@ public class Node implements Comparable<Node>
             return children;
         }
 
-        public int getNodeNumber()
-        {
-            return nodeNumber;
-        }
-
-        public void setNodeNumber(int nodeNumber)
-        {
-            this.nodeNumber = nodeNumber;
-        }
-
+        // Method that returns the depth of the Node in the tree.
         public int getDepth()
         {
             int depth = 0;
@@ -58,14 +48,14 @@ public class Node implements Comparable<Node>
             return depth;
         }
 
-        public void setHeuristic(int heuristic)
+        public void setEstimatedCost(int estimatedCost)
         {
-            this.heuristic = heuristic;
+            this.estimatedCost = estimatedCost;
         }
 
-        public int getHeuristic()
+        public int getEstimatedCost()
         {
-            return heuristic;
+            return estimatedCost;
         }
 
         public void addChild(Node child)
@@ -73,8 +63,9 @@ public class Node implements Comparable<Node>
             this.children.add(child);
         }
 
+        // compareTo() method that defines how Nodes work as a Comparable, which is necessary for use in a PriorityQueue.
         public int compareTo(Node node)
         {
-            return Integer.compare(this.getHeuristic(), node.getHeuristic());
+            return Integer.compare(this.getEstimatedCost(), node.getEstimatedCost());
         }
 }

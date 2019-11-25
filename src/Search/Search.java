@@ -5,13 +5,14 @@ import Tree.*;
 import java.util.HashMap;
 import java.util.Map;
 
+// Abstract search class that defines a common start and solution state, and provides a common expandNode() method.
 public abstract class Search
 {
     private static final int N = 4;
 
     final Grid startState = new Grid(N);
     final Grid solutionState = new Grid(N);
-    int nodesVisited = 1;
+    int nodesGenerated = 1;
 
     Search()
     {
@@ -23,10 +24,22 @@ public abstract class Search
         startState.generateStartingGrid(depth);
     }
 
-    void expandNodes(Node node, int nodeNumber)
+    public Grid getStartingGrid()
+    {
+        return startState;
+    }
+
+    public int getNodesGenerated()
+    {
+        return nodesGenerated;
+    }
+
+    // Function that expands the given node by generating every possible successor node, i.e. the directions in which the agent can move.
+    void expandNode(Node node)
     {
         Grid currentGrid = node.getValue();
 
+        // For each direction, attempt to move the agent in that direction
         for (Direction dir : Direction.values())
         {
             Map<Character, Integer> blockPositions = new HashMap<>();
@@ -45,8 +58,10 @@ public abstract class Search
 
             if (!newGrid.equals(currentGrid))
             {
-                Node newNode = new Node(newGrid, node, nodeNumber);
+                Node newNode = new Node(newGrid, node);
                 node.addChild(newNode);
+
+                nodesGenerated++;
             }
         }
     }

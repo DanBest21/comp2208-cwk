@@ -19,6 +19,7 @@ public class Main
         System.out.println("Please insert the appropriate number for the search strategy you wish to use:");
         System.out.println("1. BFS\n2. DFS\n3. DFS with random node order\n4. IDS\n5. A* Search");
 
+        // Set the strategy to the search that the user has specified.
         while (strategy == null)
         {
             input = scanner.nextInt();
@@ -61,38 +62,46 @@ public class Main
 
         input = scanner.nextInt();
 
+        // Verify that the optimal depth selected is allowed. If not, re-prompt the user for their input.
         while (input < 0 || input > 20)
         {
             System.out.println("Error: " + input + " is not a valid value. The value specified must be between 0 and 20.");
             input = scanner.nextInt();
         }
 
+        // Set the starting grid based on the optimal depth value provided.
         strategy.setStartingGrid(input);
-
-        Node solution = strategy.search();
-        int nodesVisited = solution.getNodeNumber();
-        int depth = solution.getDepth();
-
-        List<Direction> directions = new ArrayList<>();
 
         System.out.println("\n*************************************************************************************");
         System.out.println(strategyName + " - Optimal Solution Depth: " + input);
         System.out.println("*************************************************************************************");
 
-        System.out.println("\n" + solution.getValue());
+        System.out.println("\n" + strategy.getStartingGrid());
 
+        // Perform the search.
+        Node solution = strategy.search();
+        int nodesGenerated = strategy.getNodesGenerated();
+        int depth = solution.getDepth();
+
+        List<Direction> directions = new ArrayList<>();
+
+        System.out.println(solution.getValue());
+
+        // Retrieve the steps taken by analysing each node and then moving up the tree.
         while (solution.getParent() != null)
         {
             directions.add(solution.getValue().getLastDirection());
             solution = solution.getParent();
         }
 
+        // Reverse the directions since they will be in the opposite order (since we travelled up the tree).
         Collections.reverse(directions);
 
-        System.out.print("Solution found in " + nodesVisited + " nodes: ");
+        System.out.print("Solution found after generating " + nodesGenerated + " nodes: ");
 
         int i = 1;
 
+        // Output the steps taken.
         for (Direction dir : directions)
         {
             if (i == directions.size())

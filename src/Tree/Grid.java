@@ -3,6 +3,7 @@ package Tree;
 import java.util.HashMap;
 import java.util.Map;
 
+// Class that stores the information about the grid and its current state, and the methods that can be used to manipulate it.
 public class Grid
 {
     private final int size;
@@ -36,6 +37,7 @@ public class Grid
         this.blockPositions = blockPositions;
     }
 
+    // Method that automatically generates a starting grid based on its size.
     public void generateStartingGrid()
     {
         int blockNumber = size - 1;
@@ -53,6 +55,7 @@ public class Grid
     }
 
     // IMPORTANT: This function only works if the size of the grid is 4x4, i.e. size = 4.
+    // Method that sets a custom starting position based on the depth value provided.
     public void generateStartingGrid(int depth)
     {
         blockPositions.clear();
@@ -156,35 +159,36 @@ public class Grid
                 setBlockPosition('a', 0, 3);
                 setBlockPosition('b', 1, 3);
                 setBlockPosition('c', 3, 3);
-                setAgentPosition(2, 2);
+                setAgentPosition(2, 1);
                 break;
             case 17:
                 setBlockPosition('a', 0, 3);
                 setBlockPosition('b', 1, 3);
                 setBlockPosition('c', 3, 3);
-                setAgentPosition(2, 1);
+                setAgentPosition(2, 0);
                 break;
             case 18:
                 setBlockPosition('a', 0, 3);
                 setBlockPosition('b', 1, 3);
                 setBlockPosition('c', 3, 3);
-                setAgentPosition(2, 0);
-                break;
-            case 19:
-                setBlockPosition('a', 0, 3);
-                setBlockPosition('b', 1, 3);
-                setBlockPosition('c', 3, 3);
                 setAgentPosition(0, 0);
                 break;
-            case 20:
+            case 19:
                 setBlockPosition('a', 0, 3);
                 setBlockPosition('b', 1, 3);
                 setBlockPosition('c', 3, 2);
                 setAgentPosition(0, 0);
                 break;
+            case 20:
+                setBlockPosition('a', 3, 1);
+                setBlockPosition('b', 3, 3);
+                setBlockPosition('c', 3, 2);
+                setAgentPosition(2, 0);
+                break;
         }
     }
 
+    // Method that automatically generates the solution state.
     public void generateSolutionGrid()
     {
         int blockNumber = size - 1;
@@ -199,6 +203,8 @@ public class Grid
         }
     }
 
+    // Function that returns the grid.
+    // Since multidimensional arrays are treated as objects in Java, we need to make a new one and return that to avoid any conflicts between Grid objects.
     public char[][] getGrid()
     {
         char[][] newGrid = new char[size][size];
@@ -211,6 +217,7 @@ public class Grid
         return newGrid;
     }
 
+    // Overridden toString() method to define how a Grid object should be output as a String.
     @Override
     public String toString()
     {
@@ -232,16 +239,19 @@ public class Grid
         return printString;
     }
 
+    // Function that sets a position on the grid to a block.
     private void setBlockPosition(char block, int x, int y)
     {
         grid[y][x] = block;
 
+        // If the block isn't the empty block, or the agent block, then we want to update where it is in the blockPositions HashMap.
         if (block != E && block != A)
         {
             blockPositions.put(block, x + (size * y));
         }
     }
 
+    // Method that sets the position of the agent on the grid.
     private void setAgentPosition(int x, int y)
     {
         grid[y][x] = A;
@@ -258,8 +268,12 @@ public class Grid
         return position / size;
     }
 
-    public int getAgentPosition() { return agentPosition; }
+    public int getAgentPosition()
+    {
+        return agentPosition;
+    }
 
+    // Function that returns the block position of any entry in the blockPositions HashMap.
     private int getBlockPosition(char block)
     {
         if (blockPositions.containsKey(block))
@@ -273,11 +287,13 @@ public class Grid
         return blockPositions;
     }
 
+    // Method that moves the agent in the provided direction.
     public void moveAgent(Direction direction)
     {
         int x = getXCoord(agentPosition);
         int y = getYCoord(agentPosition);
 
+        // Swap the agent and the block based on the direction specified.
         switch (direction)
         {
             case LEFT:
@@ -320,6 +336,7 @@ public class Grid
         return lastDirection;
     }
 
+    // Method that returns a boolean to see if two Grid objects have the same char[][] grid.
     public boolean equals(Grid solution)
     {
         boolean equal;
@@ -338,6 +355,7 @@ public class Grid
         return true;
     }
 
+    // Function that calculates the Manhattan Distance between this grid, and the passed Grid object.
     public int calculateManhattanDistance(Grid solution)
     {
         int distance = 0;
