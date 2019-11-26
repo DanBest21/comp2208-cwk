@@ -37,7 +37,7 @@ public class IDS extends Search
 
             // Return the node if it is the solution state.
             if (node.getValue().equals(solutionState))
-                return node;
+                return returnSolution(node);
 
             // If the limit has been reached, then do not expand this node.
             if (node.getDepth() == limit)

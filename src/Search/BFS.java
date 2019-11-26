@@ -26,7 +26,7 @@ public class BFS extends Search
 
             // Return the node if it is the solution state.
             if (node.getValue().equals(solutionState))
-                return node;
+                return returnSolution(node);
 
             expandNode(node);
 

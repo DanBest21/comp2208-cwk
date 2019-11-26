@@ -74,7 +74,7 @@ public class Main
 
         System.out.println("\n*************************************************************************************");
         System.out.println(strategyName + " - Optimal Solution Depth: " + input);
-        System.out.println("*************************************************************************************");
+        System.out.println("*************************************************************************************\n");
 
         // Perform the search.
         Node solution = strategy.search();

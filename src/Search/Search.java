@@ -12,7 +12,8 @@ public abstract class Search
 
     final Grid startState = new Grid(N);
     final Grid solutionState = new Grid(N);
-    int nodesGenerated = 1;
+    private int nodesGenerated = 1;
+    private int fringeCount = 1;
 
     Search()
     {
@@ -39,6 +40,9 @@ public abstract class Search
     {
         Grid currentGrid = node.getValue();
 
+        System.out.println("------------- Fringe " + fringeCount + " ---------------\n");
+        System.out.println("Selected node (depth " + node.getDepth() + "):\n" + node.getValue() + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
         // For each direction, attempt to move the agent in that direction
         for (Direction dir : Direction.values())
         {
@@ -62,8 +66,20 @@ public abstract class Search
                 node.addChild(newNode);
 
                 nodesGenerated++;
+
+                System.out.println(newNode.getValue());
             }
         }
+
+        fringeCount++;
+    }
+
+    Node returnSolution(Node node)
+    {
+        System.out.println("--------- Solution Node (depth " + node.getDepth() + ") ---------\n");
+        System.out.println(node.getValue());
+        System.out.println("-------------------------------------------");
+        return node;
     }
 
     public abstract Node search();
