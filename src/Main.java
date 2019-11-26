@@ -76,6 +76,8 @@ public class Main
         System.out.println(strategyName + " - Optimal Solution Depth: " + input);
         System.out.println("*************************************************************************************\n");
 
+        System.out.println("\nRoot:\n" + strategy.getStartingGrid());
+
         // Perform the search.
         Node solution = strategy.search();
         int nodesGenerated = strategy.getNodesGenerated();
@@ -93,8 +95,6 @@ public class Main
 
         // Reverse the path, since it will be in the opposite order because we're travelling up the tree.
         Collections.reverse(path);
-
-        System.out.println("\nRoot:\n" + strategy.getStartingGrid());
 
         int i = 1;
 
