@@ -9,9 +9,9 @@ public class BFS extends Search
 {
     private final Queue<Node> fringe = new LinkedList<>();
 
-    public BFS()
+    public BFS(boolean debugMode)
     {
-        super();
+        super(debugMode);
     }
 
     public Node search()

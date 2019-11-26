@@ -12,9 +12,9 @@ public class DFS extends Search
     private final Stack<Node> fringe = new Stack<>();
     private final boolean randomOrder;
 
-    public DFS(boolean randomOrder)
+    public DFS(boolean randomOrder, boolean debugMode)
     {
-        super();
+        super(debugMode);
         this.randomOrder = randomOrder;
     }
 
