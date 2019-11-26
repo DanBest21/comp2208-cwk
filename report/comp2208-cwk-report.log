@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.5.17)  25 NOV 2019 16:11
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000 64-bit) (preloaded format=pdflatex 2019.5.15)  26 NOV 2019 04:18
 entering extended mode
 **./comp2208-cwk-report.tex
 (comp2208-cwk-report.tex
 LaTeX2e <2018-12-01>
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\article.cls"
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\article.cls"
 Document Class: article 2018/09/03 v1.4i Standard LaTeX document class
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\size10.clo"
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\size10.clo"
 File: size10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 )
 \c@part=\count80
@@ -19,14 +19,13 @@ File: size10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-) ("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\inputenc.st
-y"
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\inputenc.sty"
 Package: inputenc 2018/08/11 v1.3c Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 )
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/fancyhdr\fancyhdr.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/fancyhdr\fancyhdr.sty"
 Package: fancyhdr 2019/01/31 v3.10 Extensive control of page headers and footer
 s
 \f@nch@headwidth=\skip43
@@ -39,91 +38,147 @@ s
 \f@nch@O@olf=\skip50
 \f@nch@O@orf=\skip51
 )
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/parskip\parskip.st
-y"
+("C:\Program Files\MiKTeX 2.9\tex/latex/parskip\parskip.sty"
 Package: parskip 2019-01-16 v2.0c non-zero parskip adjustments
 
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/oberdiek\kvoptions
-.sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\kvoptions.sty"
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/graphics\keyval.st
-y"
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\keyval.sty"
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
 )
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds
-.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ltxcmds.sty"
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
 )
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\kvsetke
-ys.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\kvsetkeys.sty"
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
 
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\infware
-rr.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\infwarerr.sty"
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
 )
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\etexcmd
-s.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\etexcmds.sty"
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
 
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifluate
-x.sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifluatex.sty"
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
 ))))
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/etoolbox\etoolbox.sty"
 Package: etoolbox 2018/08/19 v2.5f e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count88
 ))
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/latex/tools\multicol.sty"
+Package: multicol 2018/12/27 v1.8v multicolumn formatting (FMi)
+\c@tracingmulticols=\count89
+\mult@box=\box27
+\multicol@leftmargin=\dimen103
+\c@unbalance=\count90
+\c@collectmore=\count91
+\doublecol@number=\count92
+\multicoltolerance=\count93
+\multicolpretolerance=\count94
+\full@width=\dimen104
+\page@free=\dimen105
+\premulticols=\dimen106
+\postmulticols=\dimen107
+\multicolsep=\skip52
+\multicolbaselineskip=\skip53
+\partial@page=\box28
+\last@line=\box29
+\maxbalancingoverflow=\dimen108
+\mult@rightbox=\box30
+\mult@grightbox=\box31
+\mult@gfirstbox=\box32
+\mult@firstbox=\box33
+\@tempa=\box34
+\@tempa=\box35
+\@tempa=\box36
+\@tempa=\box37
+\@tempa=\box38
+\@tempa=\box39
+\@tempa=\box40
+\@tempa=\box41
+\@tempa=\box42
+\@tempa=\box43
+\@tempa=\box44
+\@tempa=\box45
+\@tempa=\box46
+\@tempa=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\c@columnbadness=\count95
+\c@finalcolumnbadness=\count96
+\last@try=\dimen109
+\multicolovershoot=\dimen110
+\multicolundershoot=\dimen111
+\mult@nat@firstbox=\box51
+\colbreak@box=\box52
+\mc@col@check@num=\count97
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/geometry\geometry.sty"
 Package: geometry 2018/04/16 v5.8 Page Geometry
 
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.s
-ty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifpdf.sty"
 Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 )
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/generic/oberdiek\ifvtex.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\ifvtex.sty"
 Package: ifvtex 2016/05/16 v1.6 Detect VTeX and its facilities (HO)
 Package ifvtex Info: VTeX not detected.
 )
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.
-sty"
+("C:\Program Files\MiKTeX 2.9\tex/generic/ifxetex\ifxetex.sty"
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count89
-\Gm@cntv=\count90
-\c@Gm@tempcnt=\count91
-\Gm@bindingoffset=\dimen103
-\Gm@wd@mp=\dimen104
-\Gm@odd@mp=\dimen105
-\Gm@even@mp=\dimen106
-\Gm@layoutwidth=\dimen107
-\Gm@layoutheight=\dimen108
-\Gm@layouthoffset=\dimen109
-\Gm@layoutvoffset=\dimen110
+\Gm@cnth=\count98
+\Gm@cntv=\count99
+\c@Gm@tempcnt=\count100
+\Gm@bindingoffset=\dimen112
+\Gm@wd@mp=\dimen113
+\Gm@odd@mp=\dimen114
+\Gm@even@mp=\dimen115
+\Gm@layoutwidth=\dimen116
+\Gm@layoutheight=\dimen117
+\Gm@layouthoffset=\dimen118
+\Gm@layoutvoffset=\dimen119
 \Gm@dimlist=\toks17
 
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/geometry\geometry.
-cfg")) (comp2208-cwk-report.aux)
+("C:\Program Files\MiKTeX 2.9\tex/latex/geometry\geometry.cfg"))
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphicx.sty"
+Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\graphics.sty"
+Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics\trig.sty"
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-cfg\graphics.cfg"
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 99.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/graphics-def\pdftex.def"
+File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen120
+\Gin@req@width=\dimen121
+)
+(comp2208-cwk-report.aux)
 \openout1 = `comp2208-cwk-report.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 21.
+LaTeX Font Info:    ... okay on input line 21.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -159,43 +214,254 @@ LaTeX Font Info:    ... okay on input line 18.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 19.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 19.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 19.
-[1
+("C:\Program Files\MiKTeX 2.9\tex/context/base/mkii\supp-pdf.mkii"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count101
+\scratchdimen=\dimen122
+\scratchbox=\box53
+\nofMPsegments=\count102
+\nofMParguments=\count103
+\everyMPshowfont=\toks18
+\MPscratchCnt=\count104
+\MPscratchDim=\dimen123
+\MPnumerator=\count105
+\makeMPintoPDFobject=\count106
+\everyMPtoPDFconversion=\toks19
+) ("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\epstopdf-base.sty"
+Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
-{C:/Users/dbest/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 33.
+("C:\Program Files\MiKTeX 2.9\tex/latex/oberdiek\grfext.sty"
+Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
 
-("C:\Users\dbest\AppData\Local\Programs\MiKTeX 2.9\tex/latex/base\omscmr.fd"
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\kvdefinekeys.sty"
+Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
+))
+("C:\Program Files\MiKTeX 2.9\tex/generic/oberdiek\pdftexcmds.sty"
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 456.
+)
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 22.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 22.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 22.
+ [1
+
+{C:/Users/Dan/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}]
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 33.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 33.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 36.
+
+("C:\Program Files\MiKTeX 2.9\tex/latex/base\omscmr.fd"
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 33.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 36.
+ [2]
+<./images/BFS-1-1.png, id=14, 477.785pt x 437.13312pt>
+File: ./images/BFS-1-1.png Graphic file (type png)
+<use ./images/BFS-1-1.png>
+Package pdftex.def Info: ./images/BFS-1-1.png  used on input line 67.
+(pdftex.def)             Requested size: 473.94907pt x 433.61998pt.
 
-[2] [3] (comp2208-cwk-report.aux) ) 
+Overfull \hbox (40.32907pt too wide) in paragraph at lines 67--68
+ [][] 
+ []
+
+[3 <./images/BFS-1-1.png>]
+<./images/BFS-1-2-1.png, id=20, 219.33693pt x 316.37077pt>
+File: ./images/BFS-1-2-1.png Graphic file (type png)
+<use ./images/BFS-1-2-1.png>
+Package pdftex.def Info: ./images/BFS-1-2-1.png  used on input line 72.
+(pdftex.def)             Requested size: 130.08731pt x 187.64192pt.
+<./images/BFS-1-2-2.png, id=21, 224.89615pt x 252.6923pt>
+File: ./images/BFS-1-2-2.png Graphic file (type png)
+<use ./images/BFS-1-2-2.png>
+Package pdftex.def Info: ./images/BFS-1-2-2.png  used on input line 74.
+(pdftex.def)             Requested size: 130.08731pt x 146.16833pt.
+<./images/BFS-1-2-3.png, id=22, 223.38pt x 389.65154pt>
+File: ./images/BFS-1-2-3.png Graphic file (type png)
+<use ./images/BFS-1-2-3.png>
+Package pdftex.def Info: ./images/BFS-1-2-3.png  used on input line 76.
+(pdftex.def)             Requested size: 130.08731pt x 226.9196pt.
+
+Overfull \hbox (23.48431pt too wide) in paragraph at lines 72--77
+[][]
+ []
+
+
+Overfull \hbox (23.48431pt too wide) in paragraph at lines 72--77
+[]
+ []
+
+
+Overfull \hbox (23.48431pt too wide) in paragraph at lines 72--77
+[] 
+ []
+
+<./images/BFS-1-3.png, id=23, 227.85126pt x 252.945pt>
+File: ./images/BFS-1-3.png Graphic file (type png)
+<use ./images/BFS-1-3.png>
+Package pdftex.def Info: ./images/BFS-1-3.png  used on input line 82.
+(pdftex.def)             Requested size: 227.8507pt x 252.94438pt.
+<./images/BFS-1-4.png, id=24, 225.40154pt x 383.08154pt>
+File: ./images/BFS-1-4.png Graphic file (type png)
+<use ./images/BFS-1-4.png>
+Package pdftex.def Info: ./images/BFS-1-4.png  used on input line 88.
+(pdftex.def)             Requested size: 225.40097pt x 383.08061pt.
+[4 <./images/BFS-1-2-1.png> <./images/BFS-1-2-2.png> <./images/BFS-1-2-3.png> <
+./images/BFS-1-3.png>] [5 <./images/BFS-1-4.png>]
+<./images/BFS-1-5.png, id=36, 246.62769pt x 428.56615pt>
+File: ./images/BFS-1-5.png Graphic file (type png)
+<use ./images/BFS-1-5.png>
+Package pdftex.def Info: ./images/BFS-1-5.png  used on input line 98.
+(pdftex.def)             Requested size: 133.08287pt x 231.26045pt.
+<./images/BFS-1-6.png, id=37, 389.14615pt x 342.65077pt>
+File: ./images/BFS-1-6.png Graphic file (type png)
+<use ./images/BFS-1-6.png>
+Package pdftex.def Info: ./images/BFS-1-6.png  used on input line 105.
+(pdftex.def)             Requested size: 216.68527pt x 190.79385pt.
+ [6 <./images/BFS-1-5.png> <./images/BFS-1-6.png>]
+<./images/BFS-2-1.png, id=43, 477.58846pt x 379.03847pt>
+File: ./images/BFS-2-1.png Graphic file (type png)
+<use ./images/BFS-2-1.png>
+Package pdftex.def Info: ./images/BFS-2-1.png  used on input line 117.
+(pdftex.def)             Requested size: 433.62pt x 344.15631pt.
+ [7 <./images/BFS-2-1.png>]
+<./images/BFS-2-2-1.png, id=49, 216.30461pt x 317.38155pt>
+File: ./images/BFS-2-2-1.png Graphic file (type png)
+<use ./images/BFS-2-2-1.png>
+Package pdftex.def Info: ./images/BFS-2-2-1.png  used on input line 123.
+(pdftex.def)             Requested size: 173.44534pt x 254.50125pt.
+<./images/BFS-2-2-2.png, id=50, 226.9177pt x 321.93pt>
+File: ./images/BFS-2-2-2.png Graphic file (type png)
+<use ./images/BFS-2-2-2.png>
+Package pdftex.def Info: ./images/BFS-2-2-2.png  used on input line 125.
+(pdftex.def)             Requested size: 173.44534pt x 246.07915pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 123--126
+[][]
+ []
+
+<./images/BFS-2-3.png, id=51, 685.30154pt x 530.65384pt>
+File: ./images/BFS-2-3.png Graphic file (type png)
+<use ./images/BFS-2-3.png>
+Package pdftex.def Info: ./images/BFS-2-3.png  used on input line 134.
+(pdftex.def)             Requested size: 298.65797pt x 231.26045pt.
+[8 <./images/BFS-2-2-1.png> <./images/BFS-2-2-2.png> <./images/BFS-2-3.png>]
+<./images/DFS-1-1.png, id=58, 477.08308pt x 501.34154pt>
+File: ./images/DFS-1-1.png Graphic file (type png)
+<use ./images/DFS-1-1.png>
+Package pdftex.def Info: ./images/DFS-1-1.png  used on input line 144.
+(pdftex.def)             Requested size: 216.81pt x 227.83536pt.
+<./images/DFS-1-2.png, id=59, 228.43385pt x 318.3923pt>
+File: ./images/DFS-1-2.png Graphic file (type png)
+<use ./images/DFS-1-2.png>
+Package pdftex.def Info: ./images/DFS-1-2.png  used on input line 146.
+(pdftex.def)             Requested size: 173.44534pt x 241.75717pt.
+
+Overfull \hbox (28.45276pt too wide) in paragraph at lines 144--147
+[][]
+ []
+
+[9 <./images/DFS-1-1.png> <./images/DFS-1-2.png>]
+<./images/DFS-1-3.png, id=65, 236.01462pt x 379.03847pt>
+File: ./images/DFS-1-3.png Graphic file (type png)
+<use ./images/DFS-1-3.png>
+Package pdftex.def Info: ./images/DFS-1-3.png  used on input line 153.
+(pdftex.def)             Requested size: 173.44534pt x 278.56389pt.
+<./images/DFS-1-4.png, id=66, 228.93922pt x 314.34923pt>
+File: ./images/DFS-1-4.png Graphic file (type png)
+<use ./images/DFS-1-4.png>
+Package pdftex.def Info: ./images/DFS-1-4.png  used on input line 155.
+(pdftex.def)             Requested size: 173.44534pt x 238.15002pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 153--156
+[][]
+ []
+
+[10 <./images/DFS-1-3.png> <./images/DFS-1-4.png>]
+<./images/DFS-1-5.png, id=72, 253.1977pt x 314.85461pt>
+File: ./images/DFS-1-5.png Graphic file (type png)
+<use ./images/DFS-1-5.png>
+Package pdftex.def Info: ./images/DFS-1-5.png  used on input line 162.
+(pdftex.def)             Requested size: 173.44534pt x 215.6885pt.
+<./images/DFS-1-6.png, id=73, 249.66pt x 388.13539pt>
+File: ./images/DFS-1-6.png Graphic file (type png)
+<use ./images/DFS-1-6.png>
+Package pdftex.def Info: ./images/DFS-1-6.png  used on input line 164.
+(pdftex.def)             Requested size: 173.44534pt x 269.64966pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 162--165
+[][]
+ []
+
+[11 <./images/DFS-1-5.png> <./images/DFS-1-6.png>]
+<./images/DFS-2-1.png, id=79, 229.95pt x 321.42462pt>
+File: ./images/DFS-2-1.png Graphic file (type png)
+<use ./images/DFS-2-1.png>
+Package pdftex.def Info: ./images/DFS-2-1.png  used on input line 173.
+(pdftex.def)             Requested size: 173.44534pt x 242.45094pt.
+<./images/DFS-2-2.png, id=80, 227.42308pt x 322.43538pt>
+File: ./images/DFS-2-2.png Graphic file (type png)
+<use ./images/DFS-2-2.png>
+Package pdftex.def Info: ./images/DFS-2-2.png  used on input line 175.
+(pdftex.def)             Requested size: 173.44534pt x 245.90459pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 173--176
+[][]
+ []
+
+[12 <./images/DFS-2-1.png> <./images/DFS-2-2.png>]
+<./images/DFS-2-3.png, id=86, 273.91846pt x 470.00769pt>
+File: ./images/DFS-2-3.png Graphic file (type png)
+<use ./images/DFS-2-3.png>
+Package pdftex.def Info: ./images/DFS-2-3.png  used on input line 183.
+(pdftex.def)             Requested size: 235.8662pt x 404.71022pt.
+<./images/DFS-2-4.png, id=87, 905.64923pt x 27.79616pt>
+File: ./images/DFS-2-4.png Graphic file (type png)
+<use ./images/DFS-2-4.png>
+Package pdftex.def Info: ./images/DFS-2-4.png  used on input line 190.
+(pdftex.def)             Requested size: 433.62pt x 13.3089pt.
+ [13 <./images/DFS-2-3.png> <./images/DFS-2-4.png>]
+<./images/DFS-2-5.png, id=94, 265.32692pt x 406.83461pt>
+File: ./images/DFS-2-5.png Graphic file (type png)
+<use ./images/DFS-2-5.png>
+Package pdftex.def Info: ./images/DFS-2-5.png  used on input line 198.
+(pdftex.def)             Requested size: 226.24957pt x 346.89952pt.
+ [14 <./images/DFS-2-5.png>] [15]
+(comp2208-cwk-report.aux) ) 
 Here is how much of TeX's memory you used:
- 1602 strings out of 492945
- 23426 string characters out of 3126252
- 96987 words of memory out of 3000000
- 5517 multiletter control sequences out of 15000+200000
+ 2658 strings out of 492945
+ 38629 string characters out of 3135519
+ 114980 words of memory out of 3000000
+ 6509 multiletter control sequences out of 15000+200000
  7895 words of font info for 28 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,10n,43p,856b,185s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Users/dbest/AppData/Local/Programs/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/dbest/AppData/Local/P
-rograms/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/dbest/Ap
-pData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Us
-ers/dbest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr1
-2.pfb><C:/Users/dbest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1/public/amsf
-onts/cm/cmr17.pfb><C:/Users/dbest/AppData/Local/Programs/MiKTeX 2.9/fonts/type1
-/public/amsfonts/cm/cmsy10.pfb>
-Output written on comp2208-cwk-report.pdf (3 pages, 88166 bytes).
+ 37i,10n,43p,829b,223s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsf
+onts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/
+cmbx12.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pf
+b><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pro
+gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program File
+s/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on comp2208-cwk-report.pdf (15 pages, 1314548 bytes).
 PDF statistics:
- 36 PDF objects out of 1000 (max. 8388607)
+ 122 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 116 words of extra memory for PDF output out of 10000 (max. 10000000)
 

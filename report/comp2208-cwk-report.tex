@@ -2,7 +2,9 @@
 \usepackage[utf8]{inputenc}
 \usepackage{fancyhdr}
 \usepackage{parskip}
+\usepackage{multicol}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
+\usepackage{graphicx}
 
 \title{COMP2208 - Search Methods Coursework}
 \author{Daniel Best (Student ID: 29777127)}
@@ -13,7 +15,8 @@
 \renewcommand{\footrulewidth}{0.5pt}
 \lfoot{Daniel Best}
 \cfoot{\thepage}
-\rfoot{COMP2208 Coursework}
+\rfoot{COMP2208}
+\graphicspath{ {./images/} }
 
 \begin{document}
 	\maketitle
@@ -27,7 +30,7 @@
 	This class defines both a singular node in the tree structure, as well as the entire tree structure itself by means of its \textbf{parent} and \textbf{children} variables. It contains a single \textbf{Grid} object, the \textbf{value} variable. It also implements the Comparable interface, where it compares an optional \textbf{estimatedCost} variable - a feature that was specifically added for the A* Search algorithm.
 
 	\subsection{Grid}
-	A class that handles the state by means of manipulating a \textbf{char[][]} multidimensional array. This class stores the actual state of the problem, storing the location of the \textbf{agent} and all of the non-white space blocks; it also allows for that state to be manipulated in a multitude of ways:
+	A class that handles the state by means of manipulating a \textbf{char[][]} multidimensional array. This class stores the actual state of the problem, storing the location of the \textbf{agent} ($\neg$) and all of the non-white space blocks; it also allows for that state to be manipulated in a multitude of ways:
 	
 	\begin{itemize}
 		\item Generates the start and solution state.
@@ -47,22 +50,164 @@
 	Uses a \textbf{Stack} to store expanded nodes, meaning the last node to expanded is checked next.
 	
 	\subsection{Iterative Deepening Search (IDS)}
-	Uses \textbf{Depth Limited Search (DLS)}, a modified version of \textbf{DFS} that does not expand nodes at a given depth, which then iteratively increases this limit. 
+	Uses \textbf{Depth Limited Search (DLS)}, a modified version of \textbf{DFS} that does not expand nodes at a given \textbf{depth}, which then iteratively increases this limit. 
 	
 	\subsection{A* Heuristic Search}
 	Makes use of an evaluation function to determine which node to pick next, which is the \textbf{depth} of the node plus the \textbf{Manhattan distance (heuristic)} to the solution.
 	
 	\section{Evidence of Search Methods}
+	When testing my search methods, I found 21 start states that each corresponded to a problem which has an optimal solution at a different depth (from 0 to 20). The solution state was always the same, as specified by the problem in the assignment briefing.
+	
 	\subsection{Breadth First Search (BFS)}
+	\textbf{Example 1 (depth 4):}
 	
+	In this initial state, the agent has three possible directions that it can move.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[height=0.75\textheight]{BFS-1-1.png}
+	\end{figure}
+
+	These three new nodes are then expanded in the order that they were first generated.
+	\begin{multicols}{3}[\columnsep=2cm]
+		\includegraphics[width=0.3\textwidth,keepaspectratio]{BFS-1-2-1.png}
+		\columnbreak
+		\includegraphics[width=0.3\textwidth,keepaspectratio]{BFS-1-2-2.png}
+		\columnbreak
+		\includegraphics[width=0.3\textwidth,keepaspectratio]{BFS-1-2-3.png}
+	\end{multicols}
+
+	The algorithm then expands the first child node in \textbf{Fringe 2}, which generates the first nodes that are at a depth of 2.
+	\begin{figure}[h]
+		\centering
+		\includegraphics{BFS-1-3.png}
+	\end{figure}
+
+	This process then repeats indefinitely until the correct node is found. At the 21st expansion to the fringe, we can see the correct node being found.
+	\begin{figure}[h]
+		\centering
+		\includegraphics{BFS-1-4.png}
+	\end{figure}
+
+	However, due to the uninformed nature of the algorithm, it does not recognise this as it only checks if it is in the goal state when taking it off the \textbf{Queue}. It therefore continues to go through each node on depth 3, and all the nodes in depth 4 that exist prior to that node - a further 44 expansions. 
+	
+	\newpage
+	\textbf{Fringe 65} shows the node that was generated prior to the goal state node being expanded.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[height=0.4\textheight]{BFS-1-5.png}
+	\end{figure}
+	
+	The following is a breakdown of the solution of this problem, as retrieved by this search.
+	
+	\begin{figure}[h]
+		\centering
+		\includegraphics[height=0.33\textheight]{BFS-1-6.png}
+	\end{figure}
+	
+	\newpage
+	\textbf{Example 2 (depth 14):}
+	
+	The original problem provided for the assignment has an optimal solution at \textbf{depth 14}, but running BFS on it causes a \textbf{Java Heap space error} due to the number of generated nodes (space complexity).
+	
+	The algorithm starts in the same way that it did for the previous problem, by expanding the root node, and then by expanding each subsequent child in the order that they were generated.
+	
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[width=\textwidth,keepaspectratio]{BFS-2-1.png}
+	\end{figure}
+
+	\newpage
+		
+	\begin{multicols}{2}[\columnsep=2cm]
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{BFS-2-2-1.png}
+		\columnbreak
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{BFS-2-2-2.png}
+	\end{multicols}
+	
+	It then continues this process of first checking all of the nodes on a depth in the order they were generated, and then moving down to the next depth.
+	
+	Eventually however, it will run into an \textbf{OutOfMemoryException} due to running out of Java Heap space.
+	
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[height=0.4\textheight,keepaspectratio]{BFS-2-3.png}
+	\end{figure}
+	
+	\newpage
 	\subsection{Depth First Search (DFS)}
+	\textbf{Example 1 (depth 5):}
 	
-	\subsection{Iterative Deepning Search (IDS)}
+	Implementing DFS for this type of problem has an obvious flaw in that the nodes are generated in an ordered manner. In the case of my algorithm, this is left, right, up and down. As such, the node added to the top of the \textbf{Stack} will always be the last possible direction. In this particular example, the agent will keep moving down and then back up again, since these will be the latest nodes generated.
+	
+	\begin{multicols}{2}[\columnsep=2cm]
+		\includegraphics[width=0.5\textwidth,keepaspectratio]{DFS-1-1.png}
+		\columnbreak
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{DFS-1-2.png}
+	\end{multicols}
+	
+	\newpage
+	This means that unless modified accordingly, i.e. so the order of the generated nodes is randomised, the algorithm will almost certainly never find a solution.
+		
+	\begin{multicols}{2}[\columnsep=2cm]
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{DFS-1-3.png}
+		\columnbreak
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{DFS-1-4.png}
+	\end{multicols}
+
+	\newpage
+	Eventually, this will cause an \textbf{OutOfMemoryException}, since it will repeat this process indefinitely, with the only difference being that the depth has increased by one each time.
+	
+	\begin{multicols}{2}[\columnsep=2cm]
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{DFS-1-5.png}
+		\columnbreak
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{DFS-1-6.png}
+	\end{multicols}
+
+	\newpage
+	\textbf{Example 2 (depth 5 with random order):}
+	
+	In order to get DFS working with this problem, the order in which the generated nodes are placed onto the \textbf{Stack} should be randomised. Below, we can see the effect this has on the third and fourth node expansion.
+	
+	\begin{multicols}{2}[\columnsep=2cm]
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{DFS-2-1.png}
+		\columnbreak
+		\includegraphics[width=0.4\textwidth,keepaspectratio]{DFS-2-2.png}
+	\end{multicols}
+
+	\newpage
+	By completely arbitrary movements, the algorithm will eventually find some solution.
+	
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[height=0.7\textheight,keepaspectratio]{DFS-2-3.png}
+	\end{figure}
+
+	However, this solution is almost guaranteed to not be the optimal solution. The solution returned here is in 10967 steps, whereas the optimal solution for this problem is in merely 5.
+	
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[width=\textwidth,keepaspectratio]{DFS-2-4.png}
+	\end{figure}
+
+	\newpage
+	Due to the random nature of this algorithm, the solution returned is very likely to be different each time, with the below showing what the algorithm returns on another run-through.
+	
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[height=0.6\textheight,keepaspectratio]{DFS-2-5.png}
+	\end{figure}
+	
+	\newpage
+	\subsection{Iterative Deepening Search (IDS)}
+	\textbf{Example 1 (depth 6):}
 	
 	\subsection{A* Heuristic Search}
 	
 	\section{Scalability Study}
+	
 	\section{Extras and Limitations}
-	\section{References}
+	
 	\section{Code}
+	
 \end{document}
