@@ -167,7 +167,7 @@
 	\newpage
 	\textbf{Example 2 (depth 5 with random order):}
 	
-	In order to get DFS working with this problem, the order in which the generated nodes are placed onto the \textbf{Stack} should be randomised. Below, we can see the effect this has on the third and fourth node expansion.
+	In order to get DFS working with this problem, the order in which the generated nodes are placed onto the \textbf{Stack} should be randomised. This is done by using the \textbf{Collections.shuffle()} function on the children list. Below, we can see the effect this has on the third and fourth node expansion.
 	
 	\begin{multicols}{2}[\columnsep=2cm]
 		\includegraphics[width=0.4\textwidth,keepaspectratio]{DFS-2-1.png}
@@ -204,7 +204,13 @@
 	
 	\subsection{A* Heuristic Search}
 	
+	\newpage
+	
 	\section{Scalability Study}
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[height=0.5\textheight,keepaspectratio]{Results-Plot.png}
+	\end{figure}
 	
 	\section{Extras and Limitations}
 	
