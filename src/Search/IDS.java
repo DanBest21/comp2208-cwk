@@ -10,6 +10,11 @@ public class IDS extends Search
 {
     private final Stack<Node> fringe = new Stack<>();
 
+    public IDS(boolean debugMode)
+    {
+        super(debugMode);
+    }
+
     public Node search()
     {
         Node solution = null;

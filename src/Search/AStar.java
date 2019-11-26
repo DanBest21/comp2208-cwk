@@ -10,6 +10,11 @@ public class AStar extends Search
 {
     private final Queue<Node> fringe = new PriorityQueue<>();
 
+    public AStar(boolean debugMode)
+    {
+        super(debugMode);
+    }
+
     public Node search()
     {
         Node node = new Node(startState, null);

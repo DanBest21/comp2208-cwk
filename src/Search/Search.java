@@ -14,9 +14,11 @@ public abstract class Search
     final Grid solutionState = new Grid(N);
     private int nodesGenerated = 1;
     private int fringeCount = 1;
+    private final boolean debugMode;
 
-    Search()
+    Search(boolean debugMode)
     {
+        this.debugMode = debugMode;
         solutionState.generateSolutionGrid();
     }
 
@@ -40,8 +42,11 @@ public abstract class Search
     {
         Grid currentGrid = node.getValue();
 
-        System.out.println("------------- Fringe " + fringeCount + " ---------------\n");
-        System.out.println("Selected node (depth " + node.getDepth() + "):\n" + node.getValue() + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        if (debugMode)
+        {
+            System.out.println("------------- Fringe " + fringeCount + " ---------------\n");
+            System.out.println("Selected node (depth " + node.getDepth() + "):\n" + node.getValue() + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+        }
 
         // For each direction, attempt to move the agent in that direction
         for (Direction dir : Direction.values())
@@ -67,7 +72,8 @@ public abstract class Search
 
                 nodesGenerated++;
 
-                System.out.println(newNode.getValue());
+                if (debugMode)
+                    System.out.println(newNode.getValue());
             }
         }
 
@@ -76,9 +82,13 @@ public abstract class Search
 
     Node returnSolution(Node node)
     {
-        System.out.println("--------- Solution Node (depth " + node.getDepth() + ") ---------\n");
-        System.out.println(node.getValue());
-        System.out.println("-------------------------------------------");
+        if (debugMode)
+        {
+            System.out.println("--------- Solution Node (depth " + node.getDepth() + ") ---------\n");
+            System.out.println(node.getValue());
+            System.out.println("-------------------------------------------\n");
+        }
+
         return node;
     }
 

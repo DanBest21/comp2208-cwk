@@ -15,6 +15,20 @@ public class Main
 
         Scanner scanner = new Scanner(System.in);
         int input;
+        String inputString;
+        boolean debugMode;
+
+        System.out.println("Would you like to turn on debug mode? (Y/N)");
+
+        inputString = scanner.nextLine();
+
+        while (!inputString.toUpperCase().equals("Y") && !inputString.toUpperCase().equals("N"))
+        {
+            System.out.println("Please enter a valid input - i.e. either Y for yes, or N for no");
+            inputString = scanner.nextLine();
+        }
+
+        debugMode = inputString.toUpperCase().equals("Y");
 
         System.out.println("Please insert the appropriate number for the search strategy you wish to use:");
         System.out.println("1. BFS\n2. DFS\n3. DFS with random node order\n4. IDS\n5. A* Search");
@@ -27,27 +41,27 @@ public class Main
             switch (input)
             {
                 case 1:
-                    strategy = new BFS();
+                    strategy = new BFS(debugMode);
                     strategyName = "Breadth First Search (BFS)";
                     break;
 
                 case 2:
-                    strategy = new DFS(false);
+                    strategy = new DFS(false, debugMode);
                     strategyName = "Depth First Search (BFS)";
                     break;
 
                 case 3:
-                    strategy = new DFS(true);
+                    strategy = new DFS(true, debugMode);
                     strategyName = "Depth First Search (DFS), with random node order";
                     break;
 
                 case 4:
-                    strategy = new IDS();
+                    strategy = new IDS(debugMode);
                     strategyName = "Iterative Deepening Search (IDS)";
                     break;
 
                 case 5:
-                    strategy = new AStar();
+                    strategy = new AStar(debugMode);
                     strategyName = "A* Heuristic Search";
                     break;
 
@@ -76,7 +90,7 @@ public class Main
         System.out.println(strategyName + " - Optimal Solution Depth: " + input);
         System.out.println("*************************************************************************************\n");
 
-        System.out.println("\nRoot:\n" + strategy.getStartingGrid());
+        System.out.println("Root:\n" + strategy.getStartingGrid());
 
         // Perform the search.
         Node solution = strategy.search();
