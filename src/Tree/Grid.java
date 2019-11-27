@@ -1,7 +1,6 @@
 package Tree;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 // Class that stores the information about the grid and its current state, and the methods that can be used to manipulate it.
 public class Grid
@@ -14,6 +13,9 @@ public class Grid
 
     private static final char A = '¬';
     private static final char E = 'W';
+    private static final char C = '!';
+
+    private static final int COLLISIONS_NUM = 2;
 
     public Grid(int size)
     {
@@ -52,6 +54,26 @@ public class Grid
         }
 
         setAgentPosition(size - 1, size - 1);
+
+        if (COLLISIONS_NUM > 0)
+        {
+            List<Integer> possiblePositions = new ArrayList<>();
+
+            for (int i = 0; i < (size - 1) * (size - 1); i++)
+            {
+                possiblePositions.add(i);
+            }
+
+            Random random = new Random();
+
+            for (int i = 0; i < COLLISIONS_NUM; i++)
+            {
+                int index = random.nextInt(possiblePositions.size());
+                int position = possiblePositions.get(index);
+                addCollisionBlock(getXCoord(position), getYCoord(position));
+                possiblePositions.remove(position);
+            }
+        }
     }
 
     // IMPORTANT: This function only works if the size of the grid is 4x4, i.e. size = 4.
@@ -297,7 +319,7 @@ public class Grid
         switch (direction)
         {
             case LEFT:
-                if (x != 0)
+                if (x != 0 && grid[y][x - 1] != C)
                 {
                     setBlockPosition(grid[y][x - 1], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x - 1, y);
@@ -305,7 +327,7 @@ public class Grid
                 }
                 break;
             case RIGHT:
-                if (x != size - 1)
+                if (x != size - 1 && grid[y][x + 1] != C)
                 {
                     setBlockPosition(grid[y][x + 1], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x + 1, y);
@@ -313,7 +335,7 @@ public class Grid
                 }
                 break;
             case UP:
-                if (y != 0)
+                if (y != 0 && grid[y - 1][x] != C)
                 {
                     setBlockPosition(grid[y - 1][x], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x, y - 1);
@@ -321,7 +343,7 @@ public class Grid
                 }
                 break;
             case DOWN:
-                if (y != size - 1)
+                if (y != size - 1 && grid[y + 1][x] != C)
                 {
                     setBlockPosition(grid[y + 1][x], getXCoord(agentPosition), getYCoord(agentPosition));
                     setAgentPosition(x, y + 1);
@@ -347,12 +369,22 @@ public class Grid
             {
                 equal = grid[i][j] == solution.grid[i][j];
 
-                if (!equal && grid[i][j] != A)
+                if (!equal && grid[i][j] != A && grid[i][j] != C)
                     return false;
             }
         }
 
         return true;
+    }
+
+    public void addCollisionBlock(int x, int y)
+    {
+        int position = x + (size * y);
+
+        if (blockPositions.containsValue(position) || getAgentPosition() == position)
+            System.out.println("Cannot add collision block to co-ordinate (" + x + ", " + ") as it is already occupied by a block or the agent!");
+        else
+            grid[y][x] = '!';
     }
 
     // Function that calculates the Manhattan Distance between this grid, and the passed Grid object.
