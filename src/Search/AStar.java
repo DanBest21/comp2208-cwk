@@ -35,14 +35,32 @@ public class AStar extends Search
 
             expandNode(node);
 
+            int i = 1;
+
+            if (debugMode)
+            {
+                System.out.println("===== A* Heuristic Search information =====\n");
+                System.out.println("Depth at " + (node.getDepth() + 1) + "\n");
+            }
+
             // For each expanded child node, calculate the estimated cost using the current depth and Manhattan distance (heuristic), and put it into the PriorityQueue.
             for (Node childNode : node.getChildren())
             {
-                estimatedCost = childNode.getDepth() + childNode.getValue().calculateManhattanDistance(solutionState);
+                int heuristic = childNode.getValue().calculateManhattanDistance(solutionState);
+                estimatedCost = childNode.getDepth() + heuristic;
+
+                if (debugMode)
+                {
+                    System.out.println("Child " + i + ":");
+                    System.out.println("Heuristic (Manhattan distance): " + heuristic);
+                    System.out.println("Evaluation function value: " + estimatedCost + "\n");
+                }
 
                 childNode.setEstimatedCost(estimatedCost);
 
                 fringe.add(childNode);
+
+                i++;
             }
         }
 

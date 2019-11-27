@@ -14,7 +14,7 @@ public abstract class Search
     final Grid solutionState = new Grid(N);
     private int nodesGenerated = 1;
     private int fringeCount = 1;
-    private final boolean debugMode;
+    final boolean debugMode;
 
     Search(boolean debugMode)
     {
