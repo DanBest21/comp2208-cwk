@@ -20,7 +20,7 @@ public class AStar extends Search
         Node node = new Node(startState, null);
 
         // Get the estimated cost of the node - the Manhattan distance (heuristic) between the grid state and that of the solution.
-        int estimatedCost = node.getValue().calculateManhattanDistance(solutionState);
+        double estimatedCost = node.getValue().calculateDistance(solutionState);
         node.setEstimatedCost(estimatedCost);
 
         fringe.add(node);
@@ -46,13 +46,13 @@ public class AStar extends Search
             // For each expanded child node, calculate the estimated cost using the current depth and Manhattan distance (heuristic), and put it into the PriorityQueue.
             for (Node childNode : node.getChildren())
             {
-                int heuristic = childNode.getValue().calculateManhattanDistance(solutionState);
+                double heuristic = childNode.getValue().calculateDistance(solutionState);
                 estimatedCost = childNode.getDepth() + heuristic;
 
                 if (debugMode)
                 {
                     System.out.println("Child " + i + ":");
-                    System.out.println("Heuristic (Manhattan distance): " + heuristic);
+                    System.out.println("Heuristic: " + heuristic);
                     System.out.println("Evaluation function value: " + estimatedCost + "\n");
                 }
 

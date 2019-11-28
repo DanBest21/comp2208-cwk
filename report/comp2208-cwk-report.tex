@@ -5,6 +5,10 @@
 \usepackage{multicol}
 \usepackage[a4paper, total={6in, 8in}]{geometry}
 \usepackage{graphicx}
+\usepackage{listings}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{xcolor}
 \usepackage[toc,page]{appendix}
 
 \title{COMP2208 - Search Methods Coursework}
@@ -18,6 +22,14 @@
 \cfoot{\thepage}
 \rfoot{COMP2208}
 \graphicspath{ {./images/} }
+
+\lstset{
+	basicstyle=\ttfamily,
+	columns=fullflexible,
+	frame=single,
+	breaklines=true,
+	postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+}
 
 \begin{document}
 	\maketitle
@@ -374,11 +386,48 @@
 
 	From this data, you may extrapolate that the DFS with a random order is the best performing algorithm for problems with larger depth solutions. However, although it may be quicker to find these solutions, they are almost guaranteed to not be \textbf{optimal}. It is also worth noting that due to the arbitrary nature of this algorithm, it is actually the worst performing search at the earlier depth problems.
 	
-	Looking at the other algorithms, it is clear that A* is the best performing algorithm in terms of time complexity, however it is also clear that it is exponential based on the problem size. BFS and IDS would continue to rise exponentially too if they did not run into space complexity issues, but have a worse time complexity than A*. For the most part, IDS is better than BFS, but this is dependent on whereabouts in the tree structure the goal state is located.
+	Looking at the other algorithms, it is clear that A* is the best performing algorithm in terms of time complexity, however it is also clear that it is exponential based on the problem size. BFS and IDS would continue to rise exponentially too if they did not run into space complexity issues, but have a worse time complexity than A*. For the most part, IDS is better than BFS, but this is dependent on where in the tree structure the goal state is located.
 	
 	\newpage
 	\section{Extras and Limitations}
+	For my extras, I implemented an algorithm (as part of the \textbf{generateStartState()} function in the \textbf{Grid} class) that places a number of collision blocks (represented by a \textbf{!}) on the grid at random spots on the grid. This excludes the start state positions of the blocks and the agent, as well as the intended position of the blocks at the end state. The exact number of collision blocks is controlled through the constant \textbf{COLLISIONS\_NUM} in the \textbf{Grid} class.
 	
+	The position of these blocks can potentially have a negative effect in regards to optimal depth and a positive effect in terms of the time complexity (assuming the problem is solvable), as can be seen when performing A* Search on the default state.
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[width=\textwidth,keepaspectratio]{Extras-1.png}
+	\end{figure}
+
+	\begin{figure}[h]
+		\centering
+		\includegraphics[width=\textwidth,keepaspectratio]{Extras-2.png}
+	\end{figure}
+
+	The solution found was actually found in \textbf{22056} nodes, as opposed to the \textbf{83248} nodes that the unmodified version of this problem had for A* Search.
+	
+	\newpage
+	I also implemented an alternative heuristic for the A* Search algorithm in the form of the \textbf{Euclidean distance} algorithm. This is switched on by means of constant in the \textbf{Grid} class - \textbf{EUCLID}. The \textbf{calculateEuclideanDistance()} function is then used as opposed to the standard \textbf{calculateManhattanDistance()} function.
+	
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[width=\textwidth,keepaspectratio]{Extras-3.png}
+	\end{figure}
+
+	The heuristic is clearly different at the third node expansion, as the \textbf{Manhattan distance} is always an integer.
+	\begin{multicols}{2}[\columnsep=2cm]
+		\includegraphics[width=0.35\textwidth,keepaspectratio]{Extras-4-1.png}
+		\columnbreak
+		\includegraphics[width=0.5\textwidth,keepaspectratio]{Extras-4-2.png}
+	\end{multicols}
+
+	\newpage
+	The solution that it finds in this case is identical to what was found with the \textbf{Manhattan distance} heuristic, however other problems may perform better or worse if this heuristic is used.
+	\begin{figure}[h]	
+		\centering
+		\includegraphics[height=0.5\textheight,keepaspectratio]{Extras-5.png}
+	\end{figure}
+
+	In regards to limitations, the space complexity of my solution could be significantly improved if I were to refactor the \textbf{Grid} class to use something other than a HashMap to store the \textbf{blockPositions}. In terms of the scalability study, I could have ran the DFS algorithm on each of the states multiple times so that a more accurate average could be taken. I also could have tested A* and DFS at higher depths to determine at what point each of them would fail to find a solution.
 	
 	\newpage
 	\begin{appendices}
@@ -406,8 +455,871 @@
 			State 20
 		\end{center}
 	
+		\newpage
 		\section{Code}
 		\label{appendix:code}
+		
+		\subsection{Node}
+\begin{lstlisting}[language=Java]
+package Tree;
+
+import java.util.ArrayList;
+import java.util.List;
+
+// Class that defines a Node, which is used to form a Tree structure by means of the parent and children variables.
+public class Node implements Comparable<Node>
+{
+	private final Grid value;
+	private final Node parent;
+	private final List<Node> children;
+	private double estimatedCost;
+
+	public Node(Grid value, Node parent)
+	{
+		this.value = value;
+		this.parent = parent;
+		this.children = new ArrayList<>();
+	}
+	
+	public Grid getValue()
+	{
+		return value;
+	}
+	
+	public Node getParent()
+	{
+		return parent;
+	}
+	
+	public List<Node> getChildren()
+	{
+		return children;
+	}
+	
+	// Method that returns the depth of the Node in the tree.
+	public int getDepth()
+	{
+		int depth = 0;
+		Node node = this;
+	
+	while (node.parent != null)
+	{
+		depth++;
+		node = node.parent;
+	}
+	
+		return depth;
+	}
+	
+	public void setEstimatedCost(double estimatedCost)
+	{
+		this.estimatedCost = estimatedCost;
+	}
+	
+	public double getEstimatedCost()
+	{
+		return estimatedCost;
+	}
+	
+	public void addChild(Node child)
+	{
+		this.children.add(child);
+	}
+	
+	// compareTo() method that defines how Nodes work as a Comparable, which is necessary for use in a PriorityQueue.
+	public int compareTo(Node node)
+	{
+		return Double.compare(this.getEstimatedCost(), node.getEstimatedCost());
+	}
+}
+\end{lstlisting}
+		
+		\newpage
+		\subsection{Grid}
+\begin{lstlisting}[language=Java,mathescape=true]
+package Tree;
+
+import java.util.*;
+
+// Class that stores the information about the grid and its current state, and the methods that can be used to manipulate it.
+public class Grid
+{
+	private final int size;
+	private final char[][] grid;
+	private int agentPosition;
+	private Direction lastDirection = null;
+	private Map<Character, Integer> blockPositions = new HashMap<>();
+	
+	private static final char A = '$\neg$';
+	private static final char E = 'W';
+	private static final char C = '!';
+	
+	private static final int COLLISIONS_NUM = 0;
+	private static final boolean EUCLID = true;
+	
+	public Grid(int size)
+	{
+		this.size = size;
+		this.grid = new char[size][size];
+	
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				grid[i][j] = E;
+			}
+		}
+	}
+
+	public Grid(char[][] grid, int agentPosition, Map<Character, Integer> blockPositions)
+	{
+		this.size = grid.length;
+		this.grid = grid;
+		this.agentPosition = agentPosition;
+		this.blockPositions = blockPositions;
+	}
+
+	// Method that automatically generates a starting grid based on its size.
+	public void generateStartingGrid()
+	{
+		int blockNumber = size - 1;
+		char block = 'a';
+
+		blockPositions.clear();
+
+		for (int i = 0; i < blockNumber; i++)
+		{
+			setBlockPosition(block, i, size - 1);
+			block++;
+		}
+
+		setAgentPosition(size - 1, size - 1);
+
+		// If collisions are turned on.
+		if (COLLISIONS_NUM > 0)
+		{
+			List<Integer> possiblePositions = new ArrayList<>();
+
+			// Collect a list of all possible locations - i.e. any location that is not needed for the agent and blocks in the start state, or the blocks in the solution state.
+			for (int i = 0; i < (size * (size - 1)); i++)
+			{
+				if ((i - 1) % size != 0 || i == 1)
+					possiblePositions.add(i);
+			}
+
+			Random random = new Random();
+
+			// Randomly select an index of the possible positions, add the collision block, and then remove it from the index.
+			for (int i = 0; i < COLLISIONS_NUM; i++)
+			{
+				int index = random.nextInt(possiblePositions.size());
+				int position = possiblePositions.get(index);
+				addCollisionBlock(getXCoord(position), getYCoord(position));
+				possiblePositions.remove(index);
+			}
+		}
+	}
+
+	// IMPORTANT: This function only works if the size of the grid is 4x4, i.e. size = 4.
+	// Method that sets a custom starting position based on the depth value provided.
+	public void generateStartingGrid(int depth)
+	{
+		blockPositions.clear();
+
+		switch (depth)
+		{
+			case 0:
+				setBlockPosition('a', 1, 1);
+				setBlockPosition('b', 1, 2);
+				setBlockPosition('c', 1, 3);
+				setAgentPosition(2, 1);
+				break;
+			case 1:
+				setBlockPosition('a', 1, 1);
+				setBlockPosition('b', 0, 2);
+				setBlockPosition('c', 1, 3);
+				setAgentPosition(1, 2);
+				break;
+			case 2:
+				setBlockPosition('a', 0, 1);
+				setBlockPosition('b', 1, 1);
+				setBlockPosition('c', 1, 3);
+				setAgentPosition(1, 2);
+				break;
+			case 3:
+				setBlockPosition('a', 2, 1);
+				setBlockPosition('b', 1, 1);
+				setBlockPosition('c', 1, 2);
+				setAgentPosition(1, 3);
+				break;
+			case 4:
+				setBlockPosition('a', 2, 1);
+				setBlockPosition('b', 1, 1);
+				setBlockPosition('c', 1, 2);
+				setAgentPosition(2, 3);
+				break;
+			case 5:
+				setBlockPosition('a', 2, 1);
+				setBlockPosition('b', 1, 1);
+				setBlockPosition('c', 1, 2);
+				setAgentPosition(2, 2);
+				break;
+			case 6:
+				setBlockPosition('a', 2, 1);
+				setBlockPosition('b', 1, 1);
+				setBlockPosition('c', 1, 2);
+				setAgentPosition(0, 1);
+				break;
+			case 7:
+				setBlockPosition('a', 2, 1);
+				setBlockPosition('b', 1, 1);
+				setBlockPosition('c', 1, 2);
+				setAgentPosition(0, 0);
+				break;
+			case 8:
+				setBlockPosition('a', 2, 1);
+				setBlockPosition('b', 1, 1);
+				setBlockPosition('c', 1, 2);
+				setAgentPosition(1, 0);
+				break;
+			case 9:
+				setBlockPosition('a', 1, 3);
+				setBlockPosition('b', 1, 2);
+				setBlockPosition('c', 2, 3);
+				setAgentPosition(0, 3);
+				break;
+			case 10:
+				setBlockPosition('a', 0, 3);
+				setBlockPosition('b', 1, 2);
+				setBlockPosition('c', 2, 3);
+				setAgentPosition(1, 3);
+				break;
+			case 11:
+				setBlockPosition('a', 0, 3);
+				setBlockPosition('b', 1, 3);
+				setBlockPosition('c', 2, 3);
+				setAgentPosition(1, 2);
+				break;
+			case 12:
+				setBlockPosition('a', 0, 3);
+				setBlockPosition('b', 1, 3);
+				setBlockPosition('c', 2, 3);
+				setAgentPosition(0, 2);
+				break;
+			case 13:
+				setBlockPosition('a', 0, 3);
+				setBlockPosition('b', 1, 3);
+				setBlockPosition('c', 2, 3);
+				setAgentPosition(0, 1);
+				break;
+			case 14:
+				generateStartingGrid();
+				break;
+			case 15:
+				setBlockPosition('a', 2, 1);
+				setBlockPosition('b', 1, 1);
+				setBlockPosition('c', 0, 1);
+				setAgentPosition(0, 0);
+				break;
+			case 16:
+				setBlockPosition('a', 0, 3);
+				setBlockPosition('b', 1, 3);
+				setBlockPosition('c', 3, 3);
+				setAgentPosition(2, 1);
+				break;
+			case 17:
+				setBlockPosition('a', 0, 3);
+				setBlockPosition('b', 1, 3);
+				setBlockPosition('c', 3, 3);
+				setAgentPosition(2, 0);
+				break;
+			case 18:
+				setBlockPosition('a', 0, 3);
+				setBlockPosition('b', 1, 3);
+				setBlockPosition('c', 3, 3);
+				setAgentPosition(0, 0);
+				break;
+			case 19:
+				setBlockPosition('a', 0, 3);
+				setBlockPosition('b', 1, 3);
+				setBlockPosition('c', 3, 2);
+				setAgentPosition(0, 0);
+				break;
+			case 20:
+				setBlockPosition('a', 3, 1);
+				setBlockPosition('b', 3, 3);
+				setBlockPosition('c', 3, 2);
+				setAgentPosition(2, 0);
+				break;
+		}
+	}
+
+	// Method that automatically generates the solution state.
+	public void generateSolutionGrid()
+	{
+		int blockNumber = size - 1;
+		char block = (char) ('a' + blockNumber - 1);
+
+		blockPositions.clear();
+
+		for (int i = blockNumber; i > 0; i--)
+		{
+			setBlockPosition(block, 1, i);
+			block--;
+		}
+	}
+
+	// Function that returns the grid.
+	// Since multidimensional arrays are treated as objects in Java, we need to make a new one and return that to avoid any conflicts between Grid objects.
+	public char[][] getGrid()
+	{
+		char[][] newGrid = new char[size][size];
+
+		for (int i = 0; i < size; i++)
+		{
+			System.arraycopy(grid[i], 0, newGrid[i], 0, grid[i].length);
+		}
+
+		return newGrid;
+	}
+
+	// Overridden toString() method to define how a Grid object should be output as a String.
+	@Override
+	public String toString()
+	{
+		String printString = "";
+
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				printString = printString + grid[i][j];
+
+				if (j != size - 1)
+					printString = printString + " ";
+			}
+
+			printString = printString + "\n";
+		}
+
+		return printString;
+	}
+
+	// Function that sets a position on the grid to a block.
+	private void setBlockPosition(char block, int x, int y)
+	{
+		grid[y][x] = block;
+
+		// If the block isn't the empty block, or the agent block, then we want to update where it is in the blockPositions HashMap.
+		if (block != E && block != A)
+		{
+			blockPositions.put(block, x + (size * y));
+		}
+	}
+
+	// Method that sets the position of the agent on the grid.
+	private void setAgentPosition(int x, int y)
+	{
+		grid[y][x] = A;
+		agentPosition = x + (size * y);
+	}
+
+	private int getXCoord(int position)
+	{
+		return position % size;
+	}
+
+	private int getYCoord(int position)
+	{
+		return position / size;
+	}
+
+	public int getAgentPosition()
+	{
+		return agentPosition;
+	}
+
+	// Function that returns the block position of any entry in the blockPositions HashMap.
+	private int getBlockPosition(char block)
+	{
+		if (blockPositions.containsKey(block))
+			return blockPositions.get(block);
+
+		return -1;
+	}
+
+	public Map<Character, Integer> getBlockPositions()
+	{
+		return blockPositions;
+	}
+
+	// Method that moves the agent in the provided direction.
+	public void moveAgent(Direction direction)
+	{
+		int x = getXCoord(agentPosition);
+		int y = getYCoord(agentPosition);
+	
+		// Swap the agent and the block based on the direction specified.
+		switch (direction)
+		{
+			case LEFT:
+				if (x != 0 && grid[y][x - 1] != C)
+				{
+					setBlockPosition(grid[y][x - 1], getXCoord(agentPosition), getYCoord(agentPosition));
+					setAgentPosition(x - 1, y);
+					lastDirection = Direction.LEFT;
+				}
+				break;
+			case RIGHT:
+				if (x != size - 1 && grid[y][x + 1] != C)
+				{
+					setBlockPosition(grid[y][x + 1], getXCoord(agentPosition), getYCoord(agentPosition));
+					setAgentPosition(x + 1, y);
+					lastDirection = Direction.RIGHT;
+				}
+				break;
+			case UP:
+				if (y != 0 && grid[y - 1][x] != C)
+				{
+					setBlockPosition(grid[y - 1][x], getXCoord(agentPosition), getYCoord(agentPosition));
+					setAgentPosition(x, y - 1);
+					lastDirection = Direction.UP;
+				}
+				break;
+			case DOWN:
+				if (y != size - 1 && grid[y + 1][x] != C)
+				{
+					setBlockPosition(grid[y + 1][x], getXCoord(agentPosition), getYCoord(agentPosition));
+					setAgentPosition(x, y + 1);
+					lastDirection = Direction.DOWN;
+				}
+				break;
+		}
+	}
+
+	public Direction getLastDirection()
+	{
+		return lastDirection;
+	}
+
+	// Method that returns a boolean to see if two Grid objects have the same char[][] grid.
+	public boolean equals(Grid solution)
+	{
+		boolean equal;
+
+		for (int i = 0; i < size; i++)
+		{
+			for (int j = 0; j < size; j++)
+			{
+				equal = grid[i][j] == solution.grid[i][j];
+
+				if (!equal && grid[i][j] != A && grid[i][j] != C)
+					return false;
+			}
+		}
+
+		return true;
+	}
+
+	// Method that adds a collision block at the given x and y co-ordinates.
+	private void addCollisionBlock(int x, int y)
+	{
+		int position = x + (size * y);
+
+		if (blockPositions.containsValue(position) || getAgentPosition() == position)
+			System.out.println("Cannot add collision block to co-ordinate (" + x + ", " + ") as it is already occupied by a block or the agent!");
+		else
+			grid[y][x] = '!';
+	}
+
+	public double calculateDistance(Grid solution)
+	{
+		double distance = 0;
+	
+		for (Map.Entry entry : blockPositions.entrySet())
+		{
+			int gridPosition = (int) entry.getValue();
+			int solutionPosition = solution.getBlockPosition((char) entry.getKey());
+	
+		int gridX = getXCoord(gridPosition);
+		int gridY = getYCoord(gridPosition);
+		int solutionX = getXCoord(solutionPosition);
+		int solutionY = getYCoord(solutionPosition);
+	
+		if (EUCLID)
+			distance = distance + calculateEuclideanDistance(gridX, gridY, solutionX, solutionY);
+		else
+		distance = distance + calculateManhattanDistance(gridX, gridY, solutionX, solutionY);
+		}
+	
+		return distance;
+	}
+
+	// Function that calculates the Manhattan Distance between a position on this grid and on the solution grid.
+	private int calculateManhattanDistance(int gridX, int gridY, int solutionX, int solutionY)
+	{
+		return Math.abs(gridX - solutionX) + Math.abs(gridY - solutionY);
+	}
+
+	// Function that calculates the Euclidean Distance between a position on this grid and on the solution grid.
+	private double calculateEuclideanDistance(int gridX, int gridY, int solutionX, int solutionY)
+	{
+		return Math.sqrt(Math.pow((gridX - solutionX), 2) + Math.pow((gridY - solutionY), 2));
+	}
+}
+\end{lstlisting}
+		
+		\subsection{Direction}
+\begin{lstlisting}[language=Java]
+package Tree;
+
+public enum Direction
+{
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN
+}
+\end{lstlisting}
+		
+		\newpage
+		\subsection{Search}
+\begin{lstlisting}[language=Java]
+package Search;
+
+import Tree.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+// Abstract search class that defines a common start and solution state, and provides a common expandNode() method.
+public abstract class Search
+{
+	private static final int N = 4;
+
+	final Grid startState = new Grid(N);
+	final Grid solutionState = new Grid(N);
+	private int nodesGenerated = 1;
+	private int fringeCount = 1;
+	final boolean debugMode;
+
+	Search(boolean debugMode)
+	{
+		this.debugMode = debugMode;
+		solutionState.generateSolutionGrid();
+	}
+
+	public void setStartingGrid(int depth)
+	{
+		startState.generateStartingGrid(depth);
+	}
+
+	public Grid getStartingGrid()
+	{
+		return startState;
+	}
+
+	public int getNodesGenerated()
+	{
+		return nodesGenerated;
+	}
+
+	// Function that expands the given node by generating every possible successor node, i.e. the directions in which the agent can move.
+	void expandNode(Node node)
+	{
+		Grid currentGrid = node.getValue();
+
+		if (debugMode)
+		{
+			System.out.println("------------- Fringe " + fringeCount + " ---------------\n");
+			System.out.println("Selected node (depth " + node.getDepth() + "):\n" + node.getValue() + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+		}
+
+		// For each direction, attempt to move the agent in that direction
+		for (Direction dir : Direction.values())
+		{
+			Map<Character, Integer> blockPositions = new HashMap<>();
+
+			for (Map.Entry entry : currentGrid.getBlockPositions().entrySet())
+			{
+				char block = (char)entry.getKey();
+				int position = (int)entry.getValue();
+
+				blockPositions.put(block, position);
+			}
+
+			Grid newGrid = new Grid(currentGrid.getGrid(), currentGrid.getAgentPosition(), blockPositions);
+
+			newGrid.moveAgent(dir);
+
+			if (!newGrid.equals(currentGrid))
+			{
+				Node newNode = new Node(newGrid, node);
+				node.addChild(newNode);
+
+				nodesGenerated++;
+
+				if (debugMode)
+					System.out.println(newNode.getValue());
+			}
+		}
+
+		fringeCount++;
+	}
+
+	Node returnSolution(Node node)
+	{
+		if (debugMode)
+		{
+			System.out.println("--------- Solution Node (depth " + node.getDepth() + ") ---------\n");
+			System.out.println(node.getValue());
+			System.out.println("-------------------------------------------\n");
+		}
+
+		return node;
+	}
+
+	public abstract Node search();
+}
+\end{lstlisting}
+		
+		\newpage
+		\subsection{BFS}
+\begin{lstlisting}[language=Java]
+package Search;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import Tree.Node;
+
+// Class that implements the Breadth First Search (BFS) algorithm by using a Queue to manage the fringe.
+public class BFS extends Search
+{
+	private final Queue<Node> fringe = new LinkedList<>();
+	
+	public BFS(boolean debugMode)
+	{
+		super(debugMode);
+	}
+	
+	public Node search()
+	{
+		Node node = new Node(startState, null);
+	
+		fringe.add(node);
+	
+		while (!fringe.isEmpty())
+		{
+			node = fringe.remove();
+		
+			// Return the node if it is the solution state.
+			if (node.getValue().equals(solutionState))
+				return returnSolution(node);
+		
+			expandNode(node);
+		
+			// Add all the children to the queue, so they 'join the back of the queue'.
+			fringe.addAll(node.getChildren());
+		}
+	
+		return null;
+	}
+}	
+\end{lstlisting}
+		
+		\newpage
+		\subsection{DFS}
+\begin{lstlisting}[language=Java]
+package Search;
+
+import Tree.Node;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Stack;
+
+// Class that implements the Depth First Search (DFS) algorithm by using a Stack to manage the fringe.
+public class DFS extends Search
+{
+	private final Stack<Node> fringe = new Stack<>();
+	private final boolean randomOrder;
+	
+	public DFS(boolean randomOrder, boolean debugMode)
+	{
+		super(debugMode);
+		this.randomOrder = randomOrder;
+	}
+	
+	public Node search()
+	{
+		Node node = new Node(startState, null);
+	
+		fringe.push(node);
+	
+		while (!fringe.isEmpty())
+		{
+			node = fringe.pop();
+		
+			// Return the node if it is the solution state.
+			if (node.getValue().equals(solutionState))
+				return returnSolution(node);
+			
+			expandNode(node);
+			
+			List<Node> children = node.getChildren();
+			
+			// If the order of nodes is supposed to be random, call Collections.shuffle on the children ArrayList.
+			if (randomOrder)
+				Collections.shuffle(children);
+			
+			// Add all of the children to the Stack, so they are the next nodes to be checked.
+			fringe.addAll(children);
+		}
+	
+		return null;
+	}
+}
+\end{lstlisting}
+		
+		\newpage
+		\subsection{IDS}
+\begin{lstlisting}[language=Java]
+package Search;
+
+import Tree.Node;
+
+import java.util.List;
+import java.util.Stack;
+
+// Class that implements the Iterative Deepening Search (IDS) algorithm by using a Depth Limited Search (DLS), a modified version of DFS that stops at a certain limit, and then iterates this algorithm until a solution is found.
+public class IDS extends Search
+{
+	private final Stack<Node> fringe = new Stack<>();
+	
+	public IDS(boolean debugMode)
+	{
+		super(debugMode);
+	}
+	
+	public Node search()
+	{
+		Node solution = null;
+		int i = 1;
+	
+		// While the solution has not been returned by DLS, increase the limit by 1.
+		while (solution == null)
+		{
+			solution = depthLimitedSearch(i);
+			i++;
+		}
+	
+		return solution;
+	}
+	
+	private Node depthLimitedSearch(int limit)
+	{
+		Node node = new Node(startState, null);
+	
+		fringe.push(node);
+	
+		while (!fringe.isEmpty())
+		{
+			node = fringe.pop();
+		
+			// Return the node if it is the solution state.
+			if (node.getValue().equals(solutionState))
+				return returnSolution(node);
+		
+			// If the limit has been reached, then do not expand this node.
+			if (node.getDepth() == limit)
+				continue;
+		
+			expandNode(node);
+		
+			List<Node> children = node.getChildren();
+		
+			// As with DFS, add all of the children to the Stack, so they are the next nodes to be checked.
+			fringe.addAll(children);
+		}
+	
+		return null;
+	}
+}
+\end{lstlisting}
+		
+		\newpage
+		\subsection{AStar}
+\begin{lstlisting}[language=Java]
+package Search;
+
+import Tree.Node;
+
+import java.util.PriorityQueue;
+import java.util.Queue;
+
+// Class that implements the A* Heuristic Search algorithm by using a PriorityQueue that prioritises nodes by their heuristic.
+public class AStar extends Search
+{
+	private final Queue<Node> fringe = new PriorityQueue<>();
+	
+	public AStar(boolean debugMode)
+	{
+		super(debugMode);
+	}
+	
+	public Node search()
+	{
+		Node node = new Node(startState, null);
+		
+		// Get the estimated cost of the node - the Manhattan distance (heuristic) between the grid state and that of the solution.
+		double estimatedCost = node.getValue().calculateDistance(solutionState);
+		node.setEstimatedCost(estimatedCost);
+		
+		fringe.add(node);
+		
+		while (!fringe.isEmpty())
+		{
+			node = fringe.remove();
+			
+			// Return the node if it is the solution state.
+			if (node.getValue().equals(solutionState))
+				return returnSolution(node);
+			
+			expandNode(node);
+			
+			int i = 1;
+			
+			if (debugMode)
+			{
+				System.out.println("===== A* Heuristic Search information =====\n");
+				System.out.println("Depth at " + (node.getDepth() + 1) + "\n");
+			}
+			
+			// For each expanded child node, calculate the estimated cost using the current depth and Manhattan distance (heuristic), and put it into the PriorityQueue.
+			for (Node childNode : node.getChildren())
+			{
+				double heuristic = childNode.getValue().calculateDistance(solutionState);
+				estimatedCost = childNode.getDepth() + heuristic;
+			
+				if (debugMode)
+				{
+					System.out.println("Child " + i + ":");
+					System.out.println("Heuristic: " + heuristic);
+				System.out.println("Evaluation function value: " + estimatedCost + "\n");
+				}
+			
+				childNode.setEstimatedCost(estimatedCost);
+			
+				fringe.add(childNode);
+			
+				i++;
+			}
+		}
+	
+		return null;
+	}
+}
+\end{lstlisting}
 		
 	\end{appendices}
 	

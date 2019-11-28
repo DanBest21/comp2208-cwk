@@ -15,7 +15,8 @@ public class Grid
     private static final char E = 'W';
     private static final char C = '!';
 
-    private static final int COLLISIONS_NUM = 2;
+    private static final int COLLISIONS_NUM = 0;
+    private static final boolean EUCLID = true;
 
     public Grid(int size)
     {
@@ -55,23 +56,27 @@ public class Grid
 
         setAgentPosition(size - 1, size - 1);
 
+        // If collisions are turned on.
         if (COLLISIONS_NUM > 0)
         {
             List<Integer> possiblePositions = new ArrayList<>();
 
-            for (int i = 0; i < (size - 1) * (size - 1); i++)
+            // Collect a list of all possible locations - i.e. any location that is not needed for the agent and blocks in the start state, or the blocks in the solution state.
+            for (int i = 0; i < (size * (size - 1)); i++)
             {
-                possiblePositions.add(i);
+                if ((i - 1) % size != 0 || i == 1)
+                    possiblePositions.add(i);
             }
 
             Random random = new Random();
 
+            // Randomly select an index of the possible positions, add the collision block, and then remove it from the index.
             for (int i = 0; i < COLLISIONS_NUM; i++)
             {
                 int index = random.nextInt(possiblePositions.size());
                 int position = possiblePositions.get(index);
                 addCollisionBlock(getXCoord(position), getYCoord(position));
-                possiblePositions.remove(position);
+                possiblePositions.remove(index);
             }
         }
     }
@@ -377,7 +382,8 @@ public class Grid
         return true;
     }
 
-    public void addCollisionBlock(int x, int y)
+    // Method that adds a collision block at the given x and y co-ordinates.
+    private void addCollisionBlock(int x, int y)
     {
         int position = x + (size * y);
 
@@ -387,24 +393,38 @@ public class Grid
             grid[y][x] = '!';
     }
 
-    // Function that calculates the Manhattan Distance between this grid, and the passed Grid object.
-    public int calculateManhattanDistance(Grid solution)
+    public double calculateDistance(Grid solution)
     {
-        int distance = 0;
+        double distance = 0;
 
         for (Map.Entry entry : blockPositions.entrySet())
         {
-            int gridPosition = (int)entry.getValue();
-            int solutionPosition = solution.getBlockPosition((char)entry.getKey());
+            int gridPosition = (int) entry.getValue();
+            int solutionPosition = solution.getBlockPosition((char) entry.getKey());
 
             int gridX = getXCoord(gridPosition);
             int gridY = getYCoord(gridPosition);
             int solutionX = getXCoord(solutionPosition);
             int solutionY = getYCoord(solutionPosition);
 
-            distance = distance + Math.abs(gridX - solutionX) + Math.abs(gridY - solutionY);
+            if (EUCLID)
+                distance = distance + calculateEuclideanDistance(gridX, gridY, solutionX, solutionY);
+            else
+                distance = distance + calculateManhattanDistance(gridX, gridY, solutionX, solutionY);
         }
 
         return distance;
+    }
+
+    // Function that calculates the Manhattan Distance between a position on this grid and on the solution grid.
+    private int calculateManhattanDistance(int gridX, int gridY, int solutionX, int solutionY)
+    {
+        return Math.abs(gridX - solutionX) + Math.abs(gridY - solutionY);
+    }
+
+    // Function that calculates the Euclidean Distance between a position on this grid and on the solution grid.
+    private double calculateEuclideanDistance(int gridX, int gridY, int solutionX, int solutionY)
+    {
+        return Math.sqrt(Math.pow((gridX - solutionX), 2) + Math.pow((gridY - solutionY), 2));
     }
 }

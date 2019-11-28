@@ -9,7 +9,7 @@ public class Node implements Comparable<Node>
         private final Grid value;
         private final Node parent;
         private final List<Node> children;
-        private int estimatedCost;
+        private double estimatedCost;
 
         public Node(Grid value, Node parent)
         {
@@ -48,12 +48,12 @@ public class Node implements Comparable<Node>
             return depth;
         }
 
-        public void setEstimatedCost(int estimatedCost)
+        public void setEstimatedCost(double estimatedCost)
         {
             this.estimatedCost = estimatedCost;
         }
 
-        public int getEstimatedCost()
+        public double getEstimatedCost()
         {
             return estimatedCost;
         }
@@ -66,6 +66,6 @@ public class Node implements Comparable<Node>
         // compareTo() method that defines how Nodes work as a Comparable, which is necessary for use in a PriorityQueue.
         public int compareTo(Node node)
         {
-            return Integer.compare(this.getEstimatedCost(), node.getEstimatedCost());
+            return Double.compare(this.getEstimatedCost(), node.getEstimatedCost());
         }
 }
