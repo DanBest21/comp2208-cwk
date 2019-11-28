@@ -60,16 +60,16 @@
 	Uses a \textbf{Queue} to store expanded nodes, meaning nodes are checked in the order they are expanded.
 	
 	\subsection{Depth First Search (DFS)}
-	Uses a \textbf{Stack} to store expanded nodes, meaning the last node to expanded is checked next.
+	Uses a \textbf{Stack} to store expanded nodes, meaning the last node that was expanded is checked next.
 	
 	\subsection{Iterative Deepening Search (IDS)}
-	Uses \textbf{Depth Limited Search (DLS)}, a modified version of \textbf{DFS} that does not expand nodes at a given \textbf{depth}, which then iteratively increases this limit. 
+	Uses \textbf{Depth Limited Search (DLS)}, a modified version of \textbf{DFS} that does not expand nodes at a given \textbf{depth}. The main algorithm then iteratively increases this limit. 
 	
 	\subsection{A* Heuristic Search}
-	Makes use of an evaluation function to determine which node to pick next, which is the \textbf{depth} of the node plus the \textbf{Manhattan distance (heuristic)} to the solution.
+	Makes use of an evaluation function to determine which node to pick next, i.e. the \textbf{depth} of the node plus the \textbf{Manhattan distance (heuristic)} to the solution.
 	
 	\section{Evidence of Search Methods}
-	When testing my search methods, I found 21 start states that each corresponded to a problem which has an optimal solution at a different depth (from 0 to 20). The solution state was always the same, as specified by the problem in the assignment briefing.
+	When testing my search methods, I found 21 start states (as seen in appendix \ref{appendix:start}) that each corresponded to a problem which has an optimal solution at a different depth (from 0 to 20). The solution state was always the same, as specified by the problem in the assignment briefing.
 	
 	\subsection{Breadth First Search (BFS)}
 	\textbf{Example 1 (depth 4):}
@@ -101,7 +101,7 @@
 		\includegraphics{BFS-1-4.png}
 	\end{figure}
 
-	However, due to the uninformed nature of the algorithm, it does not recognise this as it only checks if it is in the goal state when taking it off the \textbf{Queue}. It therefore continues to go through each node on depth 3, and all the nodes in depth 4 that exist prior to that node - a further 44 expansions. 
+	However, due to the uninformed nature of the algorithm, it does not recognise this as it only checks if it is in the goal state when taking it off the \textbf{Queue}. It therefore continues to go through each node on depth 3, and all the nodes in depth 4 that existed prior to that node - a further 44 expansions. 
 	
 	\newpage
 	\textbf{Fringe 65} shows the node that was generated prior to the goal state node being expanded.
@@ -196,7 +196,7 @@
 		\includegraphics[height=0.7\textheight,keepaspectratio]{DFS-2-3.png}
 	\end{figure}
 
-	However, this solution is almost guaranteed to not be the optimal solution. The solution returned here is in 10967 steps, whereas the optimal solution for this problem is in merely 5.
+	However, this solution is almost guaranteed to not be the optimal solution. The solution returned here is in \textbf{10967} steps, whereas the optimal solution for this problem is in merely 5.
 	
 	\begin{figure}[h]	
 		\centering
@@ -269,7 +269,7 @@
 	\newpage
 	\textbf{Example 2 (depth 15):}
 	
-	Whilst IDS has a better space complexity than BFS because it handles works in a DFS manner with its node expansion, it is not immune to space constraints at a large enough problem size. The following problem has an optimal solution at a depth of 15.
+	Whilst IDS has a better space complexity than BFS because it works in a DFS manner with its node expansion, it is not immune to space constraints at a large enough problem size. The following problem has an optimal solution at a depth of 15.
 	
 	\begin{figure}[h]
 		\centering
@@ -288,7 +288,7 @@
 	\subsection{A* Heuristic Search}
 	\textbf{Example 1 (depth 3):}
 	
-	A* Search works differently to the other searches in the sense that it is an informed search, meaning the algorithm has additional information in regards to what node it should select next to expand.
+	A* Search works differently to the other searches in the sense that it is an informed search meaning the algorithm has additional information in regards to what node it should select next to expand.
 	
 	Looking through a simple example, we can see that a solution that has a depth of 3 can be found by expanding 3 nodes.
 	
@@ -378,7 +378,7 @@
 	\end{figure}
 
 	\newpage
-	The below graph visualises these results. Take note of the logarithmic scale used for the nodes generated.
+	The below graph visualises these results. Take note of the logarithmic scale used for the nodes generated (y-axis).
 	\begin{figure}[h]	
 		\centering
 		\includegraphics[height=0.5\textheight,keepaspectratio]{Results-Plot.png}
@@ -390,9 +390,9 @@
 	
 	\newpage
 	\section{Extras and Limitations}
-	For my extras, I implemented an algorithm (as part of the \textbf{generateStartState()} function in the \textbf{Grid} class) that places a number of collision blocks (represented by a \textbf{!}) on the grid at random spots on the grid. This excludes the start state positions of the blocks and the agent, as well as the intended position of the blocks at the end state. The exact number of collision blocks is controlled through the constant \textbf{COLLISIONS\_NUM} in the \textbf{Grid} class.
+	For my extras, I implemented an algorithm (as part of the \textbf{generateStartState()} function in the \textbf{Grid} class) that places a number of collision blocks (represented by a \textbf{!}) on the grid at random spots. This excludes the start state positions of the blocks and the agent, as well as the intended position of the blocks at the end state. The exact number of collision blocks is controlled through the constant \textbf{COLLISIONS\_NUM} in the \textbf{Grid} class.
 	
-	The position of these blocks can potentially have a negative effect in regards to optimal depth and a positive effect in terms of the time complexity (assuming the problem is solvable), as can be seen when performing A* Search on the default state.
+	The position of these blocks can potentially have a negative effect in regards to optimal depth, and a positive effect in terms of the time complexity (assuming the problem is solvable), as can be seen when performing A* Search on the default state.
 	\begin{figure}[h]	
 		\centering
 		\includegraphics[width=\textwidth,keepaspectratio]{Extras-1.png}
@@ -427,7 +427,7 @@
 		\includegraphics[height=0.5\textheight,keepaspectratio]{Extras-5.png}
 	\end{figure}
 
-	In regards to limitations, the space complexity of my solution could be significantly improved if I were to refactor the \textbf{Grid} class to use something other than a HashMap to store the \textbf{blockPositions}. In terms of the scalability study, I could have ran the DFS algorithm on each of the states multiple times so that a more accurate average could be taken. I also could have tested A* and DFS at higher depths to determine at what point each of them would fail to find a solution.
+	In regards to limitations, the space complexity of my solution could be significantly improved if I were to refactor the \textbf{Grid} class to use something other than a \textbf{HashMap} to store the \textbf{blockPositions}. In terms of the scalability study, I could have ran the DFS algorithm on each of the states multiple times so that a more accurate average could be taken. I also could have tested A* and DFS at higher depths to determine at what point each of them would fail to find a solution due to space constraints.
 	
 	\newpage
 	\begin{appendices}
@@ -555,7 +555,7 @@ public class Grid
 	private static final char C = '!';
 	
 	private static final int COLLISIONS_NUM = 0;
-	private static final boolean EUCLID = true;
+	private static final boolean EUCLID = false;
 	
 	public Grid(int size)
 	{

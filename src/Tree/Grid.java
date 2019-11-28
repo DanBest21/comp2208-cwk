@@ -16,7 +16,7 @@ public class Grid
     private static final char C = '!';
 
     private static final int COLLISIONS_NUM = 0;
-    private static final boolean EUCLID = true;
+    private static final boolean EUCLID = false;
 
     public Grid(int size)
     {
